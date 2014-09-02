@@ -47,7 +47,7 @@
 #  document4_name                      :string(255)      default("Replace with document name, like ''OSR-1 form''")
 #  document4_template_url              :string(255)
 #  effort_approver_title               :text             default("Effort approver")
-#  environment_title                   :string(255)      default("Environment")
+#  environment_title     f              :string(255)      default("Environment")
 #  environment_wording                 :text             default("Will the scientific environment in which the work will be done contribute to the probability of success? Are the institutional support, equipment and other physical resources available to the investigators adequate for the project proposed? Will the project benefit from unique features of the scientific environment, subject populations, or collaborative arrangements?")
 #  help_document_url_block             :text             default("<a href=\"/docs/NUCATS_Pilot_Proposal_Form.doc\" title=\"NUCATS Pilot Proposal Form\">Application template</a>\n\n      <a href=\"/docs/Application_Instructions.pdf\" title=\"NUCATS Pilot Proposal Application Instructions\">Application instructions</a>\n      <a href=\"/docs/NUCATS_Pilot_Budget.doc\" title=\"NUCATS Pilot Proposal Budget Template\">Budget Template</a>\n      <a href=\"/docs/Budget_Instructions.pdf\" title=\"NUCATS Pilot Proposal Budget Instructions\">Budget instructions</a>")
 #  how_to_url_block                    :text             default("<a href=\"/docs/NUCATS_Pilot_Grant_Site_Instructions.pdf\" title=\"NUCATS Pilot Proposal Web Site Instructions/Help/HowTo\">Site instructions</a>")
@@ -155,6 +155,7 @@
 #
 
 class Project < ActiveRecord::Base
+  self.table_name = 'nucats_projects'
   belongs_to :program
   belongs_to :creater, :class_name => "User", :foreign_key => "created_id"
   has_many :submissions
@@ -181,13 +182,13 @@ class Project < ActiveRecord::Base
   scope :recent, lambda { |*date| where('project_period_start_date >= :date and initiation_date <= :date', { :date => date.first || 3.months.ago }) }
   scope :ongoing_projects, lambda { |*date| where('project_period_end_date >= :date and project_period_start_date <= :date', { :date => date.first || 1.day.ago }) }
   scope :active, lambda { |*date| where('project_period_start_date > :date or review_end_date > :review_end_date', { :date => date.first || 3.months.ago, :review_end_date => 60.days.ago }) }
-  scope :early, lambda { where('projects.initiation_date >= :early', { :early => 30.days.from_now }) }
-  scope :preinitiation, lambda { where(':now between projects.initiation_date - 30 and projects.submission_open_date', { :now => 1.hour.ago }) }
-  scope :open, lambda { where(':now between projects.submission_open_date and projects.submission_close_date', { :now => 1.hour.ago }) }
-  scope :in_review, lambda { where(':now between projects.submission_close_date and projects.review_end_date', { :now => 1.hour.ago }) }
-  scope :recently_awarded, lambda { where('projects.review_end_date between :then and :now', { :now => 1.hour.ago, :then => 80.days.ago }) }
+  scope :early, lambda { where('nucats_projects.initiation_date >= :early', { :early => 30.days.from_now }) }
+  scope :preinitiation, lambda { where(':now between nucats_projects.initiation_date - 30 and nucats_projects.submission_open_date', { :now => 1.hour.ago }) }
+  scope :open, lambda { where(':now between nucats_projects.submission_open_date and nucats_projects.submission_close_date', { :now => 1.hour.ago }) }
+  scope :in_review, lambda { where(':now between nucats_projects.submission_close_date and nucats_projects.review_end_date', { :now => 1.hour.ago }) }
+  scope :recently_awarded, lambda { where('nucats_projects.review_end_date between :then and :now', { :now => 1.hour.ago, :then => 80.days.ago }) }
 
-  scope :late, lambda { where('projects.review_end_date <= :then', { :then => 80.days.ago }) }
+  scope :late, lambda { where('nucats_projects.review_end_date <= :then', { :then => 80.days.ago }) }
 
   def current_status
     case Date.today
@@ -226,4 +227,100 @@ class Project < ActiveRecord::Base
     self.project_name = txt
   end
 
+  def applicant_abbreviation_wording
+    read_attribute :applicant_abbr_wording
+  end
+
+  def applicant_abbreviation_wording=(wording)
+    write_attribuite :applicant_abbr_wording, wording
+  end
+
+  def max_assigned_reviewers_per_proposal
+    read_attribute :max_assig_reviewers_per_prop
+  end
+
+  def max_assigned_reviewers_per_proposal=(max)
+    write_attribuite :max_assig_reviewers_per_prop, max
+  end
+
+  def max_assigned_proposals_per_reviewer
+    read_attribute :max_assig_props_per_reviewer
+  end
+
+  def max_assigned_proposals_per_reviewer=(max)
+    write_attribuite :max_assig_props_per_reviewer, max
+  end
+
+  def applicant_abbreviation_wording
+    read_attribute :applicant_abbr_wording
+  end
+
+  def applicant_abbreviation_wording=(abbr)
+    write_attribuite :applicant_abbr_wording, abbr
+  end
+
+  def department_administrator_title
+    read_attribute :department_admin_title
+  end
+
+  def department_administrator_title=(title)
+    write_attribuite :department_admin_title, title
+  end
+
+  def show_previous_support_description
+    read_attribute :show_previous_support_descr
+  end
+
+  def show_previous_support_description=(show)
+    write_attribuite :show_previous_support_descr, show
+  end
+
+  def show_composite_scores_to_applicants
+    read_attribute :show_comp_scores_to_applicants
+  end
+
+  def show_composite_scores_to_applicants=(show)
+    write_attribuite :show_comp_scores_to_applicants, show
+  end
+
+  def show_composite_scores_to_reviewers
+    read_attribute :show_comp_scores_to_reviewers
+  end
+
+  def show_composite_scores_to_reviewers=(show)
+    write_attribuite :show_comp_scores_to_reviewers, show
+  end
+
+  def show_review_summaries_to_applicants
+    read_attribute :show_review_summ_to_applicants
+  end
+
+  def show_review_summaries_to_applicants=(show)
+    write_attribuite :show_review_summ_to_applicants, show
+  end
+
+  def show_review_summaries_to_reviewers
+    read_attribute :show_review_summ_to_reviewers
+  end
+
+  def show_review_summaries_to_reviewers=(show)
+    write_attribuite :show_review_summ_to_reviewers, show
+  end
+
+  def submission_category_description
+    read_attribute :submission_category_descr
+  end
+
+  def submission_category_description=(descr)
+    write_attribuite :submission_category_descr, descr
+  end
+
+  def supplemental_document_description
+    read_attribute :supplemental_document_descr
+  end
+
+  def supplemental_document_description=(name)
+    write_attribuite :supplemental_document_descr, name
+  end
+  
 end

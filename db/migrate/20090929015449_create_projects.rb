@@ -1,6 +1,6 @@
 class CreateProjects < ActiveRecord::Migration
   def self.up
-    create_table :projects do |t|
+    create_table :nucats_projects do |t|
       t.integer :program_id, :null => false
       t.string :project_title, :null => false
       t.string :project_name, :null => false
@@ -19,10 +19,10 @@ class CreateProjects < ActiveRecord::Migration
 
       t.float :min_budget_request, :default => 1000
       t.float :max_budget_request, :default => 50000
-      t.integer :max_assigned_reviewers_per_proposal, :default => 2
-      t.integer :max_assigned_proposals_per_reviewer, :default => 3
+      t.integer :max_assig_reviewers_per_prop, :default => 2
+      t.integer :max_assig_props_per_reviewer, :default => 3
       t.text :applicant_wording, :default => 'Principal Investigator'
-      t.text :applicant_abbreviation_wording, :default => 'PI'
+      t.text :applicant_abbr_wording, :default => 'PI'
       t.text :title_wording, :default => 'Title of Project'
       t.text :category_wording, :default => 'Core Facility Name'
       t.text :help_document_url_block, :default => '<a href="/docs/NUCATS_Pilot_Proposal_Form.doc" title="NUCATS Pilot Proposal Form">Application template</a>
@@ -32,7 +32,7 @@ class CreateProjects < ActiveRecord::Migration
       t.text :rfp_url_block, :default => '<a href="/docs/NUCATS_CTI_RFA.pdf" title="NUCATS Pilot Proposal Request for Applications">CTI RFA</a>'
       t.text :how_to_url_block, :default => '<a href="/docs/NUCATS_Assist_Instructions.pdf" title="NUCATS Pilot Proposal Web Site Instructions/Help/HowTo">Site instructions</a>'
       t.text :effort_approver_title, :default => 'Effort approver'
-      t.text :department_administrator_title, :default => 'Financial contact person'
+      t.text :department_admin_title, :default => 'Financial contact person'
       t.text :is_new_wording, :default => 'Is this completely new work?'
       t.text :other_funding_sources_wording, :default => 'Other funding sources'
       t.text :direct_project_cost_wording, :default => 'Direct project cost'
@@ -43,7 +43,7 @@ class CreateProjects < ActiveRecord::Migration
       t.boolean :show_cost_sharing_amount, :default=>false
       t.boolean :show_cost_sharing_organization, :default=>false
       t.boolean :show_received_previous_support, :default=>false
-      t.boolean :show_previous_support_description, :default=>false
+      t.boolean :show_previous_support_descr, :default=>false
       t.boolean :show_committee_review_approval, :default=>false
 
       t.boolean :show_human_subjects_research, :default=>false
@@ -152,12 +152,12 @@ class CreateProjects < ActiveRecord::Migration
       t.string :document4_info_url 
 
       t.boolean :show_project_cost, :default=>true
-      t.boolean :show_composite_scores_to_applicants, :default=>false
-      t.boolean :show_composite_scores_to_reviewers, :default=>true
-      t.boolean :show_review_summaries_to_applicants, :default=>true
-      t.boolean :show_review_summaries_to_reviewers, :default=>true
+      t.boolean :show_comp_scores_to_applicants, :default=>false
+      t.boolean :show_comp_scores_to_reviewers, :default=>true
+      t.boolean :show_review_summ_to_applicants, :default=>true
+      t.boolean :show_review_summ_to_reviewers, :default=>true
 
-      t.string :submission_category_description, :default=>"Please enter the core you are making this submission for."
+      t.string :submission_category_descr, :default=>"Please enter the core you are making this submission for."
 
       t.text :human_subjects_research_text, :default=>"Human subjects research typically includes direct contact with research participants and/or patients. Aggregate data or 'counts' of patients matching criteria, such as for proposal preparation, it is not typically considered human subjects research."
 
@@ -178,6 +178,6 @@ class CreateProjects < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :projects
+    drop_table :nucats_projects
   end
 end

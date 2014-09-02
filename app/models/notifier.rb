@@ -1,5 +1,6 @@
 # encoding: UTF-8
 class Notifier < ActionMailer::Base
+  self.table_name = 'nucats_notifiers'
   require "#{Rails.root}/app/helpers/application_helper"
   include ApplicationHelper
   require "#{Rails.root}/app/helpers/submissions_helper"

@@ -1,6 +1,6 @@
 class CreateSubmissions < ActiveRecord::Migration
   def self.up
-    create_table :submissions do |t|
+    create_table :nucats_submissions do |t|
       t.integer :project_id
       t.integer :applicant_id
       t.string  :submission_title
@@ -30,7 +30,7 @@ class CreateSubmissions < ActiveRecord::Migration
       t.timestamp :submission_at
       t.timestamp :completion_at
       t.string :effort_approver_username
-      t.string :department_administrator_username
+      t.string :department_admin_username
       t.timestamp :effort_approval_at
       t.string :effort_approver_ip
       t.integer :submission_reviews_count, :default=>0
@@ -51,7 +51,7 @@ class CreateSubmissions < ActiveRecord::Migration
       t.integer :document3_id
       t.integer :document4_id
 
-      t.integer :applicant_biosketch_document_id
+      t.integer :applicant_biosketch_doc_id
       
       t.integer :notification_cnt,  :default => 0
       t.datetime :notification_sent_at
@@ -71,6 +71,6 @@ class CreateSubmissions < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :submissions
+    drop_table :nucats_submissions
   end
 end

@@ -1,6 +1,6 @@
 class CreateUsers < ActiveRecord::Migration
   def self.up
-    create_table :users do |t|
+    create_table :nucats_users do |t|
       t.string :username, :null => false
       t.string :era_commons_name
       t.string :first_name, :null => false
@@ -47,13 +47,13 @@ class CreateUsers < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :users, [:username], :unique => true
+    add_index :nucats_users, [:username], :unique => true
     # add_index :users, [:era_commons_name], :unique => true
-    add_index :users, [:email], :unique => true
-    add_index :users, [:era_commons_name]
+    add_index :nucats_users, [:email], :unique => true
+    add_index :nucats_users, [:era_commons_name]
   end
 
   def self.down
-    drop_table :users
+    drop_table :nucats_users
   end
 end

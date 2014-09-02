@@ -1,6 +1,6 @@
 class CreateSubmissionReviews < ActiveRecord::Migration
   def self.up
-    create_table :submission_reviews do |t|
+    create_table :nucats_submission_reviews do |t|
       t.integer :submission_id
       t.integer :reviewer_id
       t.float :review_score
@@ -19,7 +19,7 @@ class CreateSubmissionReviews < ActiveRecord::Migration
       t.timestamp :accepted_at
 
       t.integer :assignment_notification_cnt, :default=>0
-      t.timestamp :assignment_notification_sent_at
+      t.timestamp :assignment_notificatin_sent_at
       t.timestamp :thank_you_sent_at
       t.integer :assignment_notification_id
       t.integer :thank_you_sent_id
@@ -48,6 +48,6 @@ class CreateSubmissionReviews < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :submission_reviews
+    drop_table :nucats_submission_reviews
   end
 end

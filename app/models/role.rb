@@ -11,6 +11,7 @@
 #
 
 class Role < ActiveRecord::Base
+  self.table_name = 'nucats_roles'
   has_many :roles_users
   has_many :users, :through => :roles_users
   has_and_belongs_to_many :rights

@@ -70,6 +70,7 @@
 #
 
 class Submission < ActiveRecord::Base
+  self.table_name = 'nucats_submissions'
   belongs_to :project
   belongs_to :applicant,                :class_name => 'User', :foreign_key => 'applicant_id'
   belongs_to :submitter,                :class_name => 'User', :foreign_key => 'created_id'

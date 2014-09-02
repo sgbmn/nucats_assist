@@ -5,7 +5,7 @@ require 'rails/all'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  Bundler.require(*Rails.groups(assets: %w(development test)))
+  Bundler.require(*Rails.groups(:assets => %w(development test)))
   # If you want your assets lazily compiled in production, use this line
   # Bundler.require(:default, :assets, Rails.env)
 end
@@ -58,8 +58,11 @@ module NucatsAssist
     config.use_omniauth = true
 
     # Emails will be sent from this address
-    config.from_address = 'p-friedman@northwestern.edu'
-    config.testing_to_address = 'p-friedman@northwestern.edu'
+    config.from_address = ''
+    config.testing_to_address = ''
+
+    config.assets.prefix = "#{ENV['RAILS_RELATIVE_URL_ROOT']}/assets"
+
   end
 
 end

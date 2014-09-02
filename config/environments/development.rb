@@ -37,25 +37,25 @@ NucatsAssist::Application.configure do
   }
   config.send_notification_to_all = false
 
-  config.aker do
-    if Rails.root.to_s =~ /Users/
-      login_config = File.join(Rails.root, %w(config logins development.yml))
-      authority Aker::Authorities::Static.from_file(login_config)
-      puts 'loading local static aker file'
-      # staff_portal = Aker::Authorities::StaffPortal.new
-      # authorities :cas, staff_portal
-      central '/etc/nubic/aker-local.yml'
-    else
-      authority :ldap
-      central '/etc/nubic/aker-local.yml'
-    end
-  end
+  # config.aker do
+  #   if Rails.root.to_s =~ /Users/
+  #     login_config = File.join(Rails.root, %w(config logins development.yml))
+  #     authority Aker::Authorities::Static.from_file(login_config)
+  #     puts 'loading local static aker file'
+  #     # staff_portal = Aker::Authorities::StaffPortal.new
+  #     # authorities :cas, staff_portal
+  #     central '/etc/nubic/aker-local.yml'
+  #   else
+  #     authority :ldap
+  #     central '/etc/nubic/aker-local.yml'
+  #   end
+  # end
 
-  OmniAuthConfigure.configure {
-    app :nucats_assist
-    strategies :nucats_accounts
-    central '/etc/nubic/omniauth/local.yml'
-  }
+  # OmniAuthConfigure.configure {
+  #   app :nucats_assist
+  #   strategies :nucats_accounts
+  #   central '/etc/nubic/omniauth/local.yml'
+  # }
 end
 
 Paperclip.options[:command_path] = '/opt/local/bin/'

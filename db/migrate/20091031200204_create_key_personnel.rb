@@ -1,6 +1,6 @@
 class CreateKeyPersonnel < ActiveRecord::Migration
   def self.up
-    create_table :key_personnel do |t|
+    create_table :nucats_key_personnel do |t|
       t.integer :submission_id
       t.integer :user_id
       t.string :role
@@ -14,6 +14,6 @@ class CreateKeyPersonnel < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :key_personnel
+    drop_table :nucats_key_personnel
   end
 end

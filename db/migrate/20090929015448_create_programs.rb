@@ -1,6 +1,6 @@
 class CreatePrograms < ActiveRecord::Migration
   def self.up
-    create_table :programs do |t|
+    create_table :nucats_programs do |t|
       t.string :program_name
       t.string :program_title
       t.string :program_url
@@ -17,6 +17,6 @@ class CreatePrograms < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :programs
+    drop_table :ncats_programs
   end
 end

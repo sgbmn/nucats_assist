@@ -1,6 +1,6 @@
 class CreateFileDocuments < ActiveRecord::Migration
   def self.up
-    create_table :file_documents do |t|
+    create_table :nucats_file_documents do |t|
       t.integer  :created_id
       t.string   :created_ip
       t.integer  :updated_id
@@ -17,6 +17,6 @@ class CreateFileDocuments < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :file_documents
+    drop_table :nucats_file_documents
   end
 end

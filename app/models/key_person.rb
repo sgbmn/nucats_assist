@@ -17,6 +17,7 @@
 #
 
 class KeyPerson < ActiveRecord::Base
+  self.table_name = 'nucats_key_persons'
   belongs_to :submission
   belongs_to :user
   accepts_nested_attributes_for :submission, :allow_destroy => true, :reject_if => :all_blank

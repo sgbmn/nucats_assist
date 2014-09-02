@@ -20,7 +20,7 @@ class AddOrdSponsor < ActiveRecord::Migration
                           program_id: program.id
     project.save!
 
-    create_admins_for_program(program)
+    # create_admins_for_program(program)
   end
 
   def create_admins_for_program(program)

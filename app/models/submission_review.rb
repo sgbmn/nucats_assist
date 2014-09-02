@@ -48,6 +48,7 @@
 #
 
 class SubmissionReview < ActiveRecord::Base
+  self.table_name = 'nucats_submission_reviews'
   belongs_to :submission, :counter_cache => true
   has_one :applicant,  :class_name => 'User', :through => :submission, :source => :applicant # doesn't seem to work
   has_one :project, :through => :submission # doesn't seem to work
@@ -94,5 +95,13 @@ class SubmissionReview < ActiveRecord::Base
 
   def nz?(val)
     z?(val) ? 0 : 1
+  end
+
+  def assignment_notification_sent_at
+    read_attribute :assignment_notificatin_sent_at
+  end
+
+  def assignment_notification_sent_at=(notification)
+    write_attribute :assignment_notificatin_sent_at, notification
   end
 end

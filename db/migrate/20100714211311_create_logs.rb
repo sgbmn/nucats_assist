@@ -1,6 +1,6 @@
 class CreateLogs < ActiveRecord::Migration
   def self.up
-    create_table :logs do |t|
+    create_table :nucats_logs do |t|
       t.string :activity
       t.integer :user_id
       t.integer :program_id
@@ -15,6 +15,6 @@ class CreateLogs < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :logs
+    drop_table :nucats_logs
   end
 end

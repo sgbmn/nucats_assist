@@ -1,6 +1,6 @@
 class CreateReviewers < ActiveRecord::Migration
   def self.up
-    create_table :reviewers do |t|
+    create_table :nucats_reviewers do |t|
       t.integer :program_id
       t.integer :user_id
 
@@ -17,6 +17,6 @@ class CreateReviewers < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :reviewers
+    drop_table :nucats_reviewers
   end
 end

@@ -19,6 +19,7 @@
 #
 
 class Reviewer < ActiveRecord::Base
+  self.table_name = 'nucats_reviewerss'
   belongs_to :user
   belongs_to :program
   attr_accessible *column_names

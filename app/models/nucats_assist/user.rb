@@ -47,7 +47,9 @@
 #  username              :string(255)      not null
 #
 
-class User < ActiveRecord::Base
+class NucatsAssist::User < ActiveRecord::Base
+
+  self.table_name = 'nucats_assist_users'
 
   has_many :reviewers  # really program reviewers since the reviewer model is a user + program
   belongs_to :biosketch, :class_name => 'FileDocument', :foreign_key => 'biosketch_document_id'

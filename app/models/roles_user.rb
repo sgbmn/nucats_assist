@@ -20,6 +20,7 @@
 #
 
 class RolesUser < ActiveRecord::Base
+  self.table_name = 'nucats_roles_users'
   belongs_to :program
   belongs_to :user
   belongs_to :role

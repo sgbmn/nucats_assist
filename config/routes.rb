@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 NucatsAssist::Application.routes.draw do
+  scope ENV['RAILS_RELATIVE_URL_ROOT'] || '/' do
   resources :file_documents, only: :show
   resources :audits, only: :index do
     collection do
@@ -126,4 +127,5 @@ NucatsAssist::Application.routes.draw do
   match 'applicants/username_lookup/:id' => 'applicants#username_lookup', :as => :netid_lookup
   match 'logout' => 'access#logout', :as => :logout
   match '/:controller(/:action(/:id))'
+end
 end

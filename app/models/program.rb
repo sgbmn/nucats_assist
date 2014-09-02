@@ -20,6 +20,7 @@
 #
 
 class Program < ActiveRecord::Base
+  self.table_name = 'nucats_programs'
   has_many :roles_users
   has_many :admins, :source => :user, :through => :roles_users,
     :include => [:roles],

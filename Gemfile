@@ -1,8 +1,10 @@
 source 'https://rubygems.org'
-source 'http://download.bioinformatics.northwestern.edu/gems'
+# source 'http://download.bioinformatics.northwestern.edu/gems'
 
 gem 'bundler'
 gem 'rails', '3.2.16'
+gem 'ruby-oci8'
+gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.0'
 gem 'pg'
 gem 'haml'
 gem 'will_paginate'
@@ -12,12 +14,14 @@ gem 'princely'
 gem 'net-ldap'
 gem 'bcdatabase'
 
+gem 'portal_app_core', :git => 'ssh://git@fscode.ahc.umn.edu:7999/CTSIPORTAL/portal_app_core.git'
+
 # Authorization
 # TODO: remove aker in favor of omniauth
-gem 'aker-rails'
-gem 'aker'
-gem 'omniauth-nucats-accounts'
-gem 'omniauth_configure'
+# gem 'aker-rails'
+# gem 'aker'
+# gem 'omniauth-nucats-accounts'
+# gem 'omniauth_configure'
 
 # ActionView::Template::Error (Could not find a JavaScript runtime.
 # See https://github.com/sstephenson/execjs for a list of available runtimes.
@@ -43,6 +47,8 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'annotate', '~> 2.5.0'
+  gem 'debugger'
+  gem 'ruby-debug-passenger'
 end
 
 gem 'prototype-rails'
@@ -64,5 +70,5 @@ group :test do
   gem 'shoulda'
   gem 'factory_girl'
   gem 'factory_girl_rails'
-  gem 'simplecov', require: false
+  # gem 'simplecov', require: false
 end

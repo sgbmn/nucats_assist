@@ -19,6 +19,7 @@
 #
 
 class FileDocument < ActiveRecord::Base
+  self.table_name = 'nucats_file_documents'
   # since we are not using a publicly accessible path, need to provide a protected file access method
   has_attached_file :file, :path => ":rails_root/public/assets/:attachment/:id/:basename.:extension"
 

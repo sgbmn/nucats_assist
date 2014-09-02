@@ -18,6 +18,7 @@
 #
 
 class Log < ActiveRecord::Base
+  self.table_name = 'nucats_logs'
   belongs_to :project
   belongs_to :program
   belongs_to :user
