@@ -65,7 +65,7 @@ class SubmissionsController < ApplicationController
   # GET /submissions/new.xml
   def new
     user_id = params[:applicant_id] || current_user_session.id
-    @applicant = User.find(user_id) unless user_id.blank?
+    @applicant = Nucats::User.find(user_id) unless user_id.blank?
     @project = Project.find(params[:project_id]) unless params[:project_id].blank?
     if @applicant.blank? || @project.blank?
       redirect_url =  @project.blank? ? projects_path : project_path(@project.id)
@@ -89,7 +89,7 @@ class SubmissionsController < ApplicationController
   # POST /submissions
   # POST /submissions.xml
   def create
-    @applicant = User.find(params[:applicant_id])
+    @applicant = Nucats::User.find(params[:applicant_id])
     @project = Project.find(params[:project_id])
     @submission = Submission.new(params[:submission])
     if @applicant.blank? || @project.blank? || @submission.blank?

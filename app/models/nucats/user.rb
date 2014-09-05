@@ -47,9 +47,9 @@
 #  username              :string(255)      not null
 #
 
-class NucatsAssist::User < ActiveRecord::Base
+class Nucats::User < ActiveRecord::Base
 
-  self.table_name = 'nucats_assist_users'
+  self.table_name = 'nucats_users'
 
   has_many :reviewers  # really program reviewers since the reviewer model is a user + program
   belongs_to :biosketch, :class_name => 'FileDocument', :foreign_key => 'biosketch_document_id'
@@ -73,7 +73,7 @@ class NucatsAssist::User < ActiveRecord::Base
 
   scope :project_applicants, lambda { |*args| joins([:submissions]).where('submissions.project_id IN (:project_ids)', { :project_ids => args.first }) }
 
-  default_scope order('lower(users.last_name),lower(users.first_name)')
+  default_scope order('lower(nucats_users.last_name),lower(nucats_users.first_name)')
   scope :program_reviewers, lambda { |*args| joins(:reviewers).where('reviewers.program_id = :program_id', { :program_id => args.first }) }
 
   scope :applicants, joins('join submissions on submissions.applicant_id = users.id')

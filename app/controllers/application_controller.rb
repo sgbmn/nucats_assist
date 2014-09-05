@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   # include Aker::Rails::SecuredController unless Rails.application.config.use_omniauth
 
   # make these accessible in a view
-  # helper_method :current_user_session
+  helper_method :current_user_session
 
   # require 'ldap_utilities' # specific ldap methods
   require 'config' # adds program_name method
@@ -72,14 +72,18 @@ class ApplicationController < ActionController::Base
   # TODO: replace this with the preferred authentication mechanism once the
   #       stakeholders choose which method to use
   # @return [User]
-  # def current_user
+  def current_user
   #   if Rails.application.config.use_omniauth
   #     return nil unless session[:user_info]
   #     @current_user ||= User.find_user_from_omniauth(session[:user_info])
   #   else
   #     request.env['aker.check'].user
   #   end
-  # end
+  # raise "#{session[:user].to_yaml}"
+  # raise "#{session['user']['x500']}"
+    @current_user ||= Nucats::User.find_by_username(session['user']['x500'])
+  end
+  helper_method :current_user # ?????????????????
 
   ##
   # For authorization using lib/nucats_membership.rb
@@ -117,24 +121,24 @@ class ApplicationController < ActionController::Base
     set_session_attributes(the_user) if the_user.username == current_user.try(:username)
   end
 
-  # def check_authorization
-  #   user = current_user_session || current_user
-  #   unless user.roles.find { |role|
-  #     role.rights.find { |right|
-  #       right.action == action_name && right.controller == self.class.controller_path
-  #       }
-  #     }
-  #     flash[:notice] = 'You are not authorized to view the page you requested'
-  #     request.env['HTTP_REFERER'] ? (redirect_to :back) : (redirect_to home_url)
-  #     return false
-  #   end
-  # end
-  # private :check_authorization
+  def check_authorization
+    user = current_user_session || current_user
+    unless user.roles.find { |role|
+      role.rights.find { |right|
+        right.action == action_name && right.controller == self.class.controller_path
+        }
+      }
+      flash[:notice] = 'You are not authorized to view the page you requested'
+      request.env['HTTP_REFERER'] ? (redirect_to :back) : (redirect_to home_url)
+      return false
+    end
+  end
+  private :check_authorization
 
   def current_user_session
     return @current_user_session if current_user_session_exists?
     set_current_user_session unless current_user.blank?
-    @current_user_session = User.new(username: '') unless current_user_session_exists?
+    @current_user_session = Nucats::User.new(username: '') unless current_user_session_exists?
     @current_user_session
   end
   private :current_user_session
@@ -146,9 +150,10 @@ class ApplicationController < ActionController::Base
 
   def set_current_user_session
     @current_user_session = nil
-    username = session[:username] || current_user.try(:username)
+    # username = session[:username] || current_user.try(:username)
+    username = session[:user][:x500] || current_user.try(:username)
     begin
-      @current_user_session = User.find_by_username(username)
+      @current_user_session = Nucats::User.find_by_username(username)
     rescue
       Rails.logger.error("Could not find User with username: #{username.inspect}")
     end

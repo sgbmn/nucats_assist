@@ -23,13 +23,14 @@ module ApplicationHelper
   # Is the current user session username in the admin list
   # @return Boolean
   def current_user_is_admin?
-    %w(wakibbe dfu601 super jml237 cmc622 pfr957).include?(current_user_session.try(:username))
+    %w(bradley kadrm002).include?(current_user_session.try(:username))
   end
   private :current_user_is_admin?
 
   # program and project session-oriented helpers
 
   def is_logged_in?
+    # raise "#{current_user.blank?}"
     return false unless defined?(current_user)
     !current_user.blank?
   end

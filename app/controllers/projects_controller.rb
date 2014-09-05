@@ -10,15 +10,15 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.xml
   def index
-    begin
+    # begin
       initialize_projects
       respond_to do |format|
         format.html # index.html.erb
         format.xml { render xml: @projects }
       end
-    rescue Exception => error
-      render inline: "<span style='color:red;'>No project found: #{error.message}</span>"
-    end
+    # rescue Exception => error
+      # render inline: "<span style='color:red;'>No project found: #{error.message}</span>"
+    # end
   end
 
   def initialize_projects

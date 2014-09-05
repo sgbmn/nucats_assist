@@ -72,11 +72,11 @@
 class Submission < ActiveRecord::Base
   self.table_name = 'nucats_submissions'
   belongs_to :project
-  belongs_to :applicant,                :class_name => 'User', :foreign_key => 'applicant_id'
-  belongs_to :submitter,                :class_name => 'User', :foreign_key => 'created_id'
-  belongs_to :effort_approver,          :class_name => 'User', :primary_key => 'username', :foreign_key => 'effort_approver_username'
-  belongs_to :core_manager,             :class_name => 'User', :primary_key => 'username', :foreign_key => 'core_manager_username'
-  belongs_to :department_administrator, :class_name => 'User', :primary_key => 'username', :foreign_key => 'department_administrator_username'
+  belongs_to :applicant,                :class_name => 'Nucats::User', :foreign_key => 'applicant_id'
+  belongs_to :submitter,                :class_name => 'Nucats::User', :foreign_key => 'created_id'
+  belongs_to :effort_approver,          :class_name => 'Nucats::User', :primary_key => 'username', :foreign_key => 'effort_approver_username'
+  belongs_to :core_manager,             :class_name => 'Nucats::User', :primary_key => 'username', :foreign_key => 'core_manager_username'
+  belongs_to :department_administrator, :class_name => 'Nucats::User', :primary_key => 'username', :foreign_key => 'department_administrator_username'
 
   belongs_to :applicant_biosketch_document, :class_name => 'FileDocument', :foreign_key => 'applicant_biosketch_document_id'
   belongs_to :application_document,         :class_name => 'FileDocument', :foreign_key => 'application_document_id'
@@ -121,7 +121,7 @@ class Submission < ActiveRecord::Base
   scope :unfilled_submissions, lambda { |*args| where('submission_reviews_count < :max_reviewers', { :max_reviewers => args.first || 2 }) }
 
   scope :unassigned_submissions, where(:submission_reviews_count => 0)
-  scope :recent, lambda { where('submissions.created_at > ?', 3.weeks.ago) }
+  scope :recent, lambda { where('nucats_submissions.created_at > ?', 3.weeks.ago) }
 
   scope :user_scoped, lambda { |*args|
     if args.first
@@ -138,7 +138,7 @@ class Submission < ActiveRecord::Base
       where('applicant_id = :id', { :id => 0 })
     else
       includes('submission_reviews')
-      .where('(submissions.applicant_id = :id or submissions.created_id = :id) and submissions.project_id IN (:projects)', { :projects => args[0], :id => args[1] })
+      .where('(nucats_submissions.applicant_id = :id or nucats_submissions.created_id = :id) and nucats_submissions.project_id IN (:projects)', { :projects => args[0], :id => args[1] })
     end
   }
 
@@ -147,7 +147,7 @@ class Submission < ActiveRecord::Base
       where('applicant_id = :id', { :id => 0 })
     else
       includes('submission_reviews')
-      .where('submissions.applicant_id = :id or submissions.created_id = :id', { :id => args.first })
+      .where('nucats_submissions.applicant_id = :id or nucats_submissions.created_id = :id', { :id => args.first })
       .order('id asc')
     end
   }
@@ -369,5 +369,21 @@ class Submission < ActiveRecord::Base
       model.save if model.errors.blank?
       self.errors.add "unable to save #{name}: " + model.errors.full_messages.join('; ') unless model.errors.blank?
     end
+  end
+
+  def department_administrator_username
+    read_attribute :department_admin_username
+  end
+
+  def department_administrator_username=(username)
+    write_attribute :department_admin_username, username
+  end
+
+  def applicant_biosketch_document_id
+    read_attribute :applicant_biosketch_doc_id
+  end
+
+  def applicant_biosketch_document_id=(id)
+    write_attribute :applicant_biosketch_doc_id, id
   end
 end

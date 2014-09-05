@@ -46,9 +46,9 @@ class ApplicantsController < ApplicationController
       redirect_to(applicants_path)
     else
       username = determine_username
-      @applicant = User.find_by_username(username)
+      @applicant = Nucats::User.find_by_username(username)
       if @applicant.blank?
-        @applicant = User.new(username: username)
+        @applicant = Nucats::User.new(username: username)
         @applicant = handle_ldap(@applicant)
       end
       if @project.membership_required?
@@ -103,7 +103,7 @@ class ApplicantsController < ApplicationController
 
   # GET /applicants/1/edit
   def edit
-    @applicant = User.find(params[:id])
+    @applicant = Nucats::User.find(params[:id])
     @sponsor = @project.program
     if is_admin?(@sponsor) || @applicant == current_user
       respond_to do |format|
@@ -119,7 +119,7 @@ class ApplicantsController < ApplicationController
   # POST /applicants.xml
   def create
     if !params[:id].blank?
-      @applicant = User.find(params[:id])
+      @applicant = Nucats::User.find(params[:id])
     elsif !params[:applicant].blank? && !params[:applicant][:username].blank?
       @applicant = User.find_by_username(params[:applicant][:username])
     end

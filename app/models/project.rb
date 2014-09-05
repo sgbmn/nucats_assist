@@ -192,12 +192,12 @@ class Project < ActiveRecord::Base
 
   def current_status
     case Date.today
-      when Date.today-300..initiation_date then "Pre-announcement"
-      when initiation_date..submission_open_date then "New announcement" # + " - opens on "+ submission_open_date.to_s(:justdate)
-      when submission_open_date..submission_close_date then "Open for Applications"
-      when submission_close_date..review_start_date then "Closed for Review"
-      when review_start_date..review_end_date then "Under Review"
-      when review_end_date..review_end_date+1000 then "Awarded"
+      when Date.today-300..initiation_date.to_date then "Pre-announcement"
+      when initiation_date.to_date..submission_open_date.to_date then "New announcement" # + " - opens on "+ submission_open_date.to_s(:justdate)
+      when submission_open_date.to_date..submission_close_date.to_date then "Open for Applications"
+      when submission_close_date.to_date..review_start_date.to_date then "Closed for Review"
+      when review_start_date.to_date..review_end_date.to_date then "Under Review"
+      when review_end_date.to_date..review_end_date.to_date+1000 then "Awarded"
     else "Unknown"
     end
   end
