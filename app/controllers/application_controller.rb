@@ -191,6 +191,7 @@ class ApplicationController < ActionController::Base
             domain['study_organization_id']
           end
         end
+        check_session
       end
     end
 

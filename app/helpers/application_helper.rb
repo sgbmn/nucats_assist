@@ -121,7 +121,7 @@ module ApplicationHelper
       end
     else
       if session[:username].blank? || session[:user_id].blank? || session[:name].blank? || session[:username] != current_user_session.try(:username)
-        the_user = User.find_by_username(current_user.try(:username))
+        the_user = Nucats::User.find_by_username(current_user.try(:username))
         set_session_attributes(the_user) unless the_user.blank?
       end
     end
