@@ -5,8 +5,8 @@ class ApproversController < ApplicationController
     @sponsor = @project.program
     if has_read_all?(@sponsor) then
       @submissions = @project.submissions.joins(
-        'LEFT OUTER JOIN "key_personnel" ON "key_personnel"."submission_id" = "submissions"."id"
-         LEFT OUTER JOIN "users" ON "users"."id" = "key_personnel"."user_id"'
+        'LEFT OUTER JOIN nucats_key_personnel ON nucats_key_personnel.submission_id = nucats_submissions.id
+         LEFT OUTER JOIN nucats_users ON nucats_users.id = nucats_key_personnel.user_id'
       ).all
     else
       @submissions = Submission.approved_submissions(current_user_session.username)

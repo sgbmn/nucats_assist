@@ -123,7 +123,7 @@ class SubmissionsController < ApplicationController
   def update
     @submission = Submission.find(params[:id])
     @project = Project.find(@submission.project_id)
-    @applicant = User.find(@submission.applicant_id)
+    @applicant = Nucats::User.find(@submission.applicant_id)
     @submission.max_budget_request = @project.max_budget_request || 50_000
     @submission.min_budget_request = @project.min_budget_request || 1000
     before_update(@submission)
@@ -154,7 +154,7 @@ class SubmissionsController < ApplicationController
     before_update(submission)
     @submission = submission
     unless params[:applicant_id].blank?
-      applicant = User.find(params[:applicant_id])
+      applicant = Nucats::User.find(params[:applicant_id])
       submission.applicant_id  =  applicant.id
     end
     respond_to do |format|
@@ -164,7 +164,7 @@ class SubmissionsController < ApplicationController
         flash[:errors] = 'You cannot reassign this proposal.'
         format.html { redirect_to project_path(submission.project_id) }
       elsif params[:applicant_id].blank?
-        @users = User.all
+        @users = Nucats::User.all
         format.html { render  }
       elsif submission.applicant_id  > 0 && submission.save
         flash[:notice] = "Submission was successfully reassigned to #{applicant.name}."

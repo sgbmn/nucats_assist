@@ -19,8 +19,8 @@
 #
 
 class Reviewer < ActiveRecord::Base
-  self.table_name = 'nucats_reviewerss'
-  belongs_to :user
+  self.table_name = 'nucats_reviewers'
+  belongs_to :user, class_name: 'Nucats::User'
   belongs_to :program
   attr_accessible *column_names
   attr_accessible :user, :program

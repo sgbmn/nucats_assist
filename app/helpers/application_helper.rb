@@ -101,7 +101,7 @@ module ApplicationHelper
     clear_session_attributes if current_user.blank? || current_user.username.blank?
 
     if !defined?(current_user_session) || current_user_session.blank? || current_user_session.try(:username) != current_user.try(:username)
-      the_user = User.find_by_username(current_user.username)
+      the_user = Nucats::User.find_by_username(current_user.username)
       if the_user.blank? || the_user.name.blank?
         if make_user(current_user.username)
           flash[:notice] = 'User account was successfully created.'
@@ -112,7 +112,7 @@ module ApplicationHelper
           flash[:notice] = 'Unable to create user account from LDAP registry.'
           make_user_from_login(current_user)
         end
-        the_user = User.find_by_username(current_user.username)
+        the_user = NUcats::User.find_by_username(current_user.username)
       end
       if !the_user.blank? || !the_user.id.blank?
         set_session_attributes(the_user)
@@ -236,41 +236,43 @@ module ApplicationHelper
     id.to_i == session[:user_id].to_i
   end
 
-  def handle_ldap(applicant)
-    begin
-      applicant unless applicant.id.blank?
-      applicant_in_db = User.find_by_username(applicant.username)
-      return applicant_in_db unless applicant_in_db.blank? || applicant_in_db.id.blank?
-      pi_data = GetLDAPentry(applicant.username) if do_ldap?
-      if pi_data.nil?
-        logger.warn("Probable error reaching the LDAP server in GetLDAPentry: GetLDAPentry returned null using netid #{applicant.username}.")
-      elsif pi_data.blank?
-        logger.warn("Entry not found. GetLDAPentry returned null using netid #{applicant.username}.")
-      else
-        ldap_rec = CleanPIfromLDAP(pi_data)
-        applicant = BuildPIobject(ldap_rec) if applicant.id.blank?
-        applicant = MergePIrecords(applicant, ldap_rec)
-        if applicant.new_record?
-          before_create(applicant)
-          applicant.save!
-        end
-      end
-     rescue Exception => error
-       begin
-         logger.error("Probable error reaching the LDAP server in GetLDAPentry: #{error.message}")
-       rescue
-         puts "Probable error reaching the LDAP server in GetLDAPentry: #{error.message}"
-       end
-    end
-    applicant
-  end
+  # def handle_ldap(applicant)
+  #   begin
+  #     applicant unless applicant.id.blank?
+  #     applicant_in_db = Nucats::User.find_by_username(applicant.username)
+  #     return applicant_in_db unless applicant_in_db.blank? || applicant_in_db.id.blank?
+  #     pi_data = GetLDAPentry(applicant.username) if do_ldap?
+  #     if pi_data.nil?
+  #       logger.warn("Probable error reaching the LDAP server in GetLDAPentry: GetLDAPentry returned null using netid #{applicant.username}.")
+  #     elsif pi_data.blank?
+  #       logger.warn("Entry not found. GetLDAPentry returned null using netid #{applicant.username}.")
+  #     else
+  #       ldap_rec = CleanPIfromLDAP(pi_data)
+  #       applicant = BuildPIobject(ldap_rec) if applicant.id.blank?
+  #       applicant = MergePIrecords(applicant, ldap_rec)
+  #       if applicant.new_record?
+  #         before_create(applicant)
+  #         applicant.save!
+  #       end
+  #     end
+  #    rescue Exception => error
+  #      begin
+  #        logger.error("Probable error reaching the LDAP server in GetLDAPentry: #{error.message}")
+  #      rescue
+  #        puts "Probable error reaching the LDAP server in GetLDAPentry: #{error.message}"
+  #      end
+  #   end
+  #   applicant
+  # end
 
   def make_user(username)
     return nil if username.blank? || username.length < 3
-    the_user = User.find_by_username(username)
+    the_user = Nucats::User.find_by_username(username)
     return the_user unless the_user.blank?
-    the_user = User.new(username: username)
-    the_user = handle_ldap(the_user)
+    umn_user = User.find_by_x500(username)
+    the_user = Nucats::User.new(username: username, first_name: umn_user.first_name,
+     last_name: umn_user.last_name, email: umn_user.email)
+    # the_user = handle_ldap(the_user)
     the_user = add_user(the_user)
     return the_user unless the_user.blank? || the_user.id.blank?
     begin
@@ -283,7 +285,7 @@ module ApplicationHelper
 
   def make_user_from_login(current_user)
     # for times when an authenticated user is not found in ldap!
-    the_user = User.find_by_username(current_user.username)
+    the_user = Nucats::User.find_by_username(current_user.username)
     return the_user unless the_user.blank?
     email =  current_user.email
     email = current_user.username + '@unknown.edu' if email.blank?
@@ -291,7 +293,7 @@ module ApplicationHelper
   end
 
   def create_user(user, email)
-    the_user = User.new(username: user.username,
+    the_user = Nucats::User.new(username: user.username,
                         first_name: user.first_name,
                         last_name: user.last_name,
                         email: email)

@@ -30,7 +30,7 @@ class RolesUser < ActiveRecord::Base
 
   scope :for_role, lambda { |*args| where('role_id = :id', { :id => args.first || 0 }) }
   scope :for_program, lambda { |*args| where('program_id = :id', { :id => args.first || 0 }) }
-  scope :admins, joins(:role).where("roles.name = 'Admin'")
+  scope :admins, joins(:role).where("nucats_roles.name = 'Admin'")
 
   validates_uniqueness_of :user_id, :scope => [:program_id, :role_id]
   validates_presence_of :user_id

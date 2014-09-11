@@ -50,9 +50,9 @@
 class SubmissionReview < ActiveRecord::Base
   self.table_name = 'nucats_submission_reviews'
   belongs_to :submission, :counter_cache => true
-  has_one :applicant,  :class_name => 'User', :through => :submission, :source => :applicant # doesn't seem to work
+  has_one :applicant,  :class_name => 'Nucats::User', :through => :submission, :source => :applicant # doesn't seem to work
   has_one :project, :through => :submission # doesn't seem to work
-  belongs_to :reviewer, :class_name => 'User', :foreign_key => 'reviewer_id'
+  belongs_to :reviewer, :class_name => 'Nucats::User', :foreign_key => 'reviewer_id'
   belongs_to :user, :foreign_key => 'reviewer_id'
 
   default_scope order('submission_id')

@@ -24,7 +24,7 @@ class Program < ActiveRecord::Base
   has_many :roles_users
   has_many :admins, :source => :user, :through => :roles_users,
     :include => [:roles],
-    :conditions => ["(roles.name = 'Admin' and roles.id = roles_users.role_id) "]
+    :conditions => ["(nucats_roles.name = 'Admin' and nucats_roles.id = nucats_roles_users.role_id) "]
 
   has_many :projects
   has_many :reviewers

@@ -32,7 +32,7 @@ class AdminsController < ApplicationController
   def view_applicants
     start_date = Date.today.beginning_of_year
     start_date -= 365 if Date.today - start_date < 90
-    @submissions = Submission.includes([:applicant]).where('submissions.created_at > :start', { :start => start_date }).all
+    @submissions = Submission.includes([:applicant]).where('nucats_submissions.created_at > :start', { :start => start_date }).all
 
     @activity = "all applicants from #{start_date.to_s} to today for all competitions"
     if has_read_all?(@sponsor)
@@ -65,7 +65,7 @@ class AdminsController < ApplicationController
     @submissions = Submission.includes([:applicant])
                              .joins([:project])
                              .where('projects.program_id = :sponsor_id', { :sponsor_id => sponsor.id })
-                             .order('submissions.created_at').all
+                             .order('nucats_submissions.created_at').all
 
     @activity = "all applicants for all compeitions sponsored by #{sponsor.program_name}"
     if has_read_all?(@sponsor)
@@ -124,7 +124,7 @@ class AdminsController < ApplicationController
     @sponsor = @project.program
     if is_super_admin?
       if defined? params[:username].blank?
-        @users = User.all
+        @users = Nucats::User.all
       else
         @current_user_session = User.find_by_username(params[:username])
         session[:username] = @current_user_session.try(:username)
@@ -196,7 +196,7 @@ class AdminsController < ApplicationController
       reviewers_to_add.each do | netid |
         netid = netid.strip
         if make_user(netid)
-          the_user = User.find_by_username(netid)
+          the_user = Nucats::User.find_by_username(netid)
           if the_user.nil? || the_user.id.nil?
             flash[:notice] += "make_user returned true, however could not find netid #{netid}; "
           else
@@ -253,7 +253,7 @@ class AdminsController < ApplicationController
   def assign_submission
     @sponsor = @project.program
     if is_admin?(@sponsor)
-      @reviewer = User.find(params[:id])
+      @reviewer =Nucats::User.find(params[:id])
       @submission = Submission.find(params[:submission_id])
       @review = @submission.submission_reviews.find_by_reviewer_id(params[:id])
       @submission.submission_reviews << SubmissionReview.new(:submission_id => params[:submission], :reviewer_id => @reviewer.id) if @review.blank?
