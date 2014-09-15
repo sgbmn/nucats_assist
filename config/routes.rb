@@ -26,7 +26,7 @@ NucatsAssist::Application.routes.draw do
     end
     resources :roles, only: [:index, :show] do
       resources :users, only: [] do
-        resources :rest, only: [] do
+        resources :rest, only: [], controller: :roles do
           member do
             get :remove
             get :add
