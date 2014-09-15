@@ -1,52 +1,52 @@
-# -*- encoding: utf-8 -*-
-set :application, 'nucats_assist'
-set :repo_url, 'https://github.com/NUBIC/nucats_assist.git'
+set :application, "portal_app_funding_opportunities"
+set :scm, :none
+set :repository, "."
 
-ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
-# set :branch, ENV['REVISION'] || ENV['BRANCH_NAME'] || 'master'
+desc "Run on development server" 
+task :development do
+  set :rails_env, "development" 
+  set :location, "goldfish.ahc.umn.edu" # Web server url.
+  role :web, location # Your HTTP server, Apache/etc
+end 
 
-set :deploy_to, '/var/www/apps/nucats_assist'
-set :deploy_via, :copy
-# set :deploy_via, :remote_cache
-set :scm, :git
+desc "Run on production server" 
+task :production do 
+  set :location, "walleye.ahc.umn.edu" # Web server url.
+  role :web, location # Your HTTP server, Apache/etc
+end 
 
-# set :format, :pretty
-# set :log_level, :debug
-# set :pty, true
+set :user, "webcluster2" # Remote user name. Must be able to log in via SSH.
+set :use_sudo, false # Remove or set the true if all commands should be run through sudo.
+set :base_path, "/var/www/webapps/#{application}"
+set :bundle_path, "#{base_path}/bundle"
 
-# set :linked_files, %w{config/database.yml}
-set :linked_files, %w{.env}
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets}
+# So can work with Pageant (i.e. public/private keys instead of password)
+set :ssh_options, {:paranoid => false, :forward_agent => true}
+set :deploy_to, "#{base_path}"
+set :deploy_via, :copy # Copy the files across as an archive rather than using git on the remote machine.
 
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
-set :keep_releases, 5
+require "bundler/capistrano"
 
-# capistrano bundler properties
-set :bundle_gemfile, -> { release_path.join('Gemfile') }
-set :bundle_dir, -> { shared_path.join('bundle') }
-set :bundle_flags, '--deployment --quiet'
-set :bundle_without, %w{development test}.join(' ')
-set :bundle_binstubs, -> { shared_path.join('bin') }
-set :bundle_roles, :all
+# Load Bundler's Capistrano plugin
+set :bundle_flags,    "--deployment"
+set :bundle_without,  [:development, :test, :tools]
 
+desc "Fix permission"
+  task :fix_permissions, :roles => [ :web ] do
+    run "chmod 775 -R #{release_path}"
+  end
+
+after "deploy:create_symlink", :fix_permissions
+after "deploy:restart", "deploy:cleanup"
+
+# if you're still using the script/reaper helper you will need
+# these http://github.com/rails/irs_process_scripts
+
+# If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
-
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
-      execute :touch, release_path.join('tmp/restart.txt')
-    end
+  task :start do ; end
+  task :stop do ; end
+  task :restart, :roles => :web, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
-
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
-  end
-
-  after :finishing, 'deploy:cleanup'
 end
