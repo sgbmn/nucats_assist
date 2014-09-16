@@ -123,15 +123,15 @@ class AdminsController < ApplicationController
   def act_as_user
     @sponsor = @project.program
     if is_super_admin?
-      if defined? params[:username].blank?
+      if params[:username].blank?
         @users = Nucats::User.all
       else
-        @current_user_session = User.find_by_username(params[:username])
+        @current_user_session = Nucats::User.find_by_username(params[:username])
         session[:username] = @current_user_session.try(:username)
         session[:name] = @current_user_session.try(:name)
         # manual Aker call
-        user = Aker::User.new(params[:username], :NUCATSassist)
-        session[:aker_user] = user
+        # user = Aker::User.new(params[:username], :NUCATSassist)
+        # session[:aker_user] = user
         check_session
         act_as_admin
 
