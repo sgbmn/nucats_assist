@@ -81,7 +81,14 @@ class ApplicationController < ActionController::Base
   #   end
   # raise "#{session[:user].to_yaml}"
   # raise "#{session['user']['x500']}"
-    @current_user ||= Nucats::User.find_by_username(session['user']['x500'])
+    return @current_user if defined? @current_user
+    user = Nucats::User.find_by_username(session['user']['x500'])
+    user = make_user(session['user']['x500']) if user.nil?
+    if user.nil?
+      render text: "Must be a portal user"
+      return
+    end
+    user
   end
   helper_method :current_user # ?????????????????
 
