@@ -346,20 +346,27 @@ class Submission < ActiveRecord::Base
         # create a new copy of the file associated only with the submission
         unless self.applicant.biosketch.file.blank?
           Rails.logger.info("~~~~ self.applicant.biosketch.file = #{self.applicant.biosketch.file.inspect}")
-          self.applicant_biosketch_document = FileDocument.new(:file => self.applicant.biosketch.file)
-          self.applicant_biosketch_document.file_content_type = self.applicant.biosketch.file_content_type
-          self.applicant_biosketch_document.file_file_name = self.applicant.biosketch.file_file_name
-          self.applicant_biosketch_document.last_updated_at = self.applicant.biosketch.updated_at
+          # self.applicant_biosketch_document = FileDocument.new(:file => self.applicant.biosketch.file)
+          # self.applicant_biosketch_document.file_content_type = self.applicant.biosketch.file_content_type
+          # self.applicant_biosketch_document.file_file_name = self.applicant.biosketch.file_file_name
+          # self.applicant_biosketch_document.last_updated_at = self.applicant.biosketch.updated_at
+
+          doc = FileDocument.new(:file => self.applicant.biosketch.file)
+          doc.file_content_type = self.applicant.biosketch.file_content_type
+          doc.file_file_name = self.applicant.biosketch.file_file_name
+          doc.last_updated_at = self.applicant.biosketch.updated_at
+          doc.save!
+          self.update_attribute :applicant_biosketch_document_id, doc.id
 
           Rails.logger.info("~~~~ creating self.applicant_biosketch_document: #{self.applicant_biosketch_document.inspect}")
-          self.applicant_biosketch_document.save
+          # self.applicant_biosketch_document.save
         end
         begin
           logger.error "saving biosketch: updated_at: #{self.applicant_biosketch_document.last_updated_at} was #{self.applicant.biosketch.updated_at}"
         rescue
           puts 'error logging error when saving biosketch'
         end
-        self.save
+        # self.save
       end
     end
   end
