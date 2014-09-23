@@ -23,7 +23,8 @@ module ApplicationHelper
   # Is the current user session username in the admin list
   # @return Boolean
   def current_user_is_admin?
-    %w(bradley kadrm002 lisaj ngox0035 flynn294 kwate003 vangi007 fenl0003).include?(current_user_session.try(:username))
+    %w(bradley kadrm002 lisaj ngox0035 flynn294 kwate003 vangi007 fenl0003
+      mlamere smwells dlhendri kenny048 john6528 amerrifi mclarson ewolter).include?(current_user_session.try(:username))
   end
   private :current_user_is_admin?
 
