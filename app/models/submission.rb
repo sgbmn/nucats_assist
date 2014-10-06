@@ -78,7 +78,7 @@ class Submission < ActiveRecord::Base
   belongs_to :core_manager,             :class_name => 'Nucats::User', :primary_key => 'username', :foreign_key => 'core_manager_username'
   belongs_to :department_administrator, :class_name => 'Nucats::User', :primary_key => 'username', :foreign_key => 'department_administrator_username'
 
-  belongs_to :applicant_biosketch_document, :class_name => 'FileDocument', :foreign_key => 'applicant_biosketch_document_id'
+  belongs_to :applicant_biosketch_document, :class_name => 'FileDocument', :foreign_key => 'applicant_biosketch_doc_id'
   belongs_to :application_document,         :class_name => 'FileDocument', :foreign_key => 'application_document_id'
   belongs_to :budget_document,              :class_name => 'FileDocument', :foreign_key => 'budget_document_id'
   belongs_to :other_support_document,       :class_name => 'FileDocument', :foreign_key => 'other_support_document_id'
@@ -214,7 +214,7 @@ class Submission < ActiveRecord::Base
     return 'Incomplete' if project.show_document3 && document3_id.blank?
     return 'Incomplete' if project.show_document4 && document4_id.blank?
     return 'Incomplete' if project.show_budget_form && budget_document_id.blank?
-    return 'Incomplete' if project.show_manage_biosketches && applicant_biosketch_document_id.blank?
+    return 'Incomplete' if project.show_manage_biosketches && _id.blank?
     return 'Incomplete' if project.show_application_doc && application_document_id.blank?
     'Complete'
   end
