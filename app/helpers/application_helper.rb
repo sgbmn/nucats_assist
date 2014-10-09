@@ -25,7 +25,7 @@ module ApplicationHelper
   def current_user_is_admin?
     %w(bradley kadrm002 lisaj ngox0035 flynn294 kwate003 vangi007 fenl0003
       mlamere smwells dlhendri kenny048 john6528 amerrifi mclarson ewolter
-      flynn294 hans1247).include?(current_user_session.try(:username))
+      flynn294 hans1247 werne406).include?(current_user_session.try(:username))
   end
   private :current_user_is_admin?
 
