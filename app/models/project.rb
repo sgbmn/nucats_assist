@@ -322,5 +322,10 @@ class Project < ActiveRecord::Base
   def supplemental_document_description=(name)
     write_attribuite :supplemental_document_descr, name
   end
+
+  def supplemental_document_name
+    name = read_attribute :supplemental_document_name 
+    name || ''
+  end
   
 end

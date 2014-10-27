@@ -272,6 +272,7 @@ module ApplicationHelper
     the_user = Nucats::User.find_by_username(username)
     return the_user unless the_user.blank?
     umn_user = User.find_by_x500(username)
+    return nil if umn_user.nil?
     the_user = Nucats::User.new(username: username, first_name: umn_user.first_name,
      last_name: umn_user.last_name, email: umn_user.email)
     # the_user = handle_ldap(the_user)

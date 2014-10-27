@@ -10,6 +10,7 @@ assets/files/
 coverage/
 public/assets/
 doc/notes/
+log/
 
 # Ignore .env files
 .env.test
