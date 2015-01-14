@@ -7,10 +7,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.tablesorter.min
-//= require jquery_noconflict
-//= require prototype
+//= require bootstrap-sprockets
+// require jquery_noconflict
+// require prototype
 //= require amstock
-//= require ddsmoothmenu
+// require ddsmoothmenu
 //= require effects
 //= require dragdrop
 //= require facebox

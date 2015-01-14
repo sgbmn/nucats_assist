@@ -1,0 +1,37 @@
+- if !cookies[:nucats_auth].present? || !session[:user_info].present? 
+  #submenu
+    %p.small 
+      Having trouble logging in? #{link_to 'Click here', auth_path, :class => 'menu_link'} to reset your session.
+    / TODO: Fix CSRF Detected error coming from OmniAuth
+
+.clearfix
+%nav.navbar.navbar-default
+  .container-fluid
+    .navbar-header
+      %button.navbar-toggle.collapsed{type: "button", data: {toggle: "collapse", target: "#bs-example-navbar-collapse-1"}}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+    .collapse.navbar-collapse{id: "bs-example-navbar-collapse-1"}
+      = render "shared/menus" if defined?(current_user_session) && !current_user_session.blank? 
+      %ul.nav.navbar-nav.navbar-right
+        %li= link_to 'Help', image_path("../docs/NUCATS_Assist_Instructions.pdf"),
+          :title => "Instructions on how to use NUCATS Assist and general help manual",
+          :class => 'menu_link'
+        - if defined?(current_user_session) && !current_user_session.blank?
+          %li
+            %p.navbar-text= session[:name] || current_user_session.try(:username)
+          %li
+            = link_to "Sign Out", application_logout_path, :title => "Logout of NUCATS Assist"
+        - else
+          %li= link_to 'Login', projects_path, :title => "Login to NUCATS Assist"
+
+
+- if !flash[:errors].blank? && flash[:errors].to_s.downcase != 'csrf detected'
+  #results.notice
+    #errors= flash[:errors].html_safe
+    = image_tag 'loading.gif', :id => 'spinner'
+- unless flash[:notice].blank?
+  #test.notice
+    #notice= flash[:notice].html_safe
