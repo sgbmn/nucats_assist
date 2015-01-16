@@ -30,4 +30,4 @@
         %span{style: "margin-left:23px"}
           = link_to_nih_biosketch_info.html_safe
     %br
-    = link_to('Remove this key individual', { :url => submission_key_person_path(submission.id, (key_person.id || 0)), :with => "'index=#{index.to_s}'" }, { :class => 'key_personnel_remove_link', :title => "Click to remove this individual from your list of key personnel. It does not delete their profile.", :remote => true, :method => :delete })
+    = link_to('Remove this key individual', { :url => submission_key_person_path(submission.id, (key_person.id || 0)), :with => "'index=#{index.to_s}'" }, {class: 'btn btn-danger', :title => "Click to remove this individual from your list of key personnel. It does not delete their profile.", :remote => true, :method => :delete })
