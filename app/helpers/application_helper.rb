@@ -329,9 +329,9 @@ module ApplicationHelper
 
   def netid_lookup_tag
     link_to(image_tag('search.gif', style: 'margin-bottom:-5px;'),
-            'http://directory.northwestern.edu/',
+            'http://www.umn.edu/lookup',
             target: '_blank',
-            title: 'Click here to go to the Northwestern Directory to look up netids')
+            title: 'Click here to go to the Directory to look up x500s')
   end
 
   def netid_lookup_observer(field_name)

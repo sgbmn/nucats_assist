@@ -1,0 +1,7 @@
+- include_sponsor_and_competition = 0 unless @project.blank?
+
+= render 'shared/submissions_list', :submissions => @submissions, :title => @title, :project => @project, :include_sponsor_and_competition => include_sponsor_and_competition
+
+= render 'shared/admin_links'
+
+.links= link_to 'List of all competitions', projects_path

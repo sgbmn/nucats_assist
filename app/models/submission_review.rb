@@ -69,8 +69,8 @@ class SubmissionReview < ActiveRecord::Base
   validates_numericality_of :budget_score, :allow_nil => true, :only_integer => true, :less_than_or_equal_to => 9, :greater_than_or_equal_to => 0
   validates_numericality_of :overall_score, :only_integer => true, :less_than_or_equal_to => 9, :greater_than_or_equal_to => 0
 
-  attr_accessible *column_names
-  attr_accessible :user, :reviewer, :submission
+  attr_accessible *column_names, :user, :reviewer, :submission, 
+    :assignment_notification_sent_at
 
   def composite_score
     return 0 if count_nonzeros?.blank? || count_nonzeros? < 1

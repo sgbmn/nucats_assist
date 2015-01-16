@@ -1,0 +1,41 @@
+- include_sponsor_and_competition = 1 if include_sponsor_and_competition.blank?
+- if submissions.blank?
+  %h3 You do not have any existing submissions for this competition.
+- else
+  - title ||= "Submissions"
+  %h3= title
+
+  - submissions.sort { |x, y| y.created_at <=> x.created_at }.each_with_index do |submission, i|
+    .submission.well
+      .submission_info
+        .submitter
+          =h "Submitter: #{submission.submitter.name}" unless submission.submitter.blank?
+        .applicant
+          Applicant:
+          = link_to submission.applicant.name, applicant_url(submission.applicant.id)
+          = mail_to submission.applicant.email, submission.applicant.email, :subject => "NUCATS Assist colleague", :encode => "javascript", :title=>"Send email to this applicant" unless submission.applicant.email.blank?
+        .submission_title
+          Title: 
+          = submission.submission_title
+        - if submission.project.show_submission_category
+          .submission_category
+            Category: 
+            = submission.submission_category
+        - if include_sponsor_and_competition > 0
+          .program_title
+            Program Title: 
+            =h submission.project.program.program_title
+          .project_title
+            Project Title: 
+            =h submission.project.project_title
+        .submission_date
+          Submission Date: 
+          = submission.created_at.strftime("%Y-%m-%d")
+        .submission_status{title: "#{submission.status_reason.join(' ')}"}
+          Status: 
+          = submission.status
+        .submission_files
+          - link_to_submission_files(submission, submission.project, false).each do |lnk|
+            = lnk.html_safe
+      .submission_actions= render 'shared/submission_list_actions', :submission=>submission
+%br

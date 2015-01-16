@@ -164,8 +164,13 @@ class Project < ActiveRecord::Base
   default_scope :order => 'submission_open_date DESC'
   before_validation :clean_params
 
-  attr_accessible *column_names
-  attr_accessible :creater, :program
+  attr_accessible *column_names, :creater, :program, :applicant_abbreviation_wording, 
+    :max_assigned_reviewers_per_proposal, :max_assigned_proposals_per_reviewer, 
+    :applicant_abbreviation_wording, :department_administrator_title, 
+    :show_previous_support_description, :show_composite_scores_to_applicants, 
+    :show_composite_scores_to_reviewers, :show_review_summaries_to_applicants, 
+    :show_review_summaries_to_reviewers, :submission_category_description, 
+    :supplemental_document_description, :supplemental_document_name
 
   validates_length_of :project_title, :within => 10..100, :too_long => "--- pick a shorter title", :too_short => "--- pick a longer title"
   validates_length_of :project_name, :within => 2..25, :too_long => "--- pick a shorter name", :too_short => "--- pick a longer name"

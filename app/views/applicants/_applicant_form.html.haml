@@ -1,0 +1,112 @@
+- pronoun = "your"
+- pronoun = "the" if current_user_session.try(:username) != applicant.username
+
+- completion = ""
+- completion = " for #{applicant.name}" if current_user_session.try(:username) != applicant.username
+- ldap_name = [applicant.name, applicant.name_suffix].compact.join(",")
+
+- if f.object && !f.object.try(:errors).blank?
+	%tr
+		%td{colspan: 3}
+			= render 'shared/error_messages', :object => f.object
+%tr
+	%td.title= f.label :name, "Name"
+	%td
+		= f.hidden_field :username
+		= f.hidden_field :first_name
+		= f.hidden_field :middle_name
+		= f.hidden_field :last_name
+		= ldap_name.blank? ? "<span style='color:red;'>username not found in ldap</span>" : ldap_name
+	%td.notes
+		Full name, from LDAP
+		= link_to 'Add info for external people', '', :onclick => visual_effect(:appear, 'applicant_fields', :duration => 0.5) + ";return false;" if ldap_name.blank?
+%tr
+	%td.title	email
+	%td
+		= f.hidden_field :email
+		= applicant.email
+	%td.notes Email, from LDAP
+%tr
+	%td{colaspan: 3}
+		- hidden_div_if(true, :id => "applicant_fields") do
+			= render "applicant_fields", :f => f, :applicant => applicant
+%tr
+	%td.title
+		= f.label :era_commons_name, "eRA Commons"
+	%td= f.text_field :era_commons_name
+	%td.notes
+		Please enter #{pronoun} NIH eRA Commons name #{completion}.
+		eRA Commons registration is required.
+		Please see more information at
+		= link_to "http://www.research.northwestern.edu/osr/commons.html", "http://www.research.northwestern.edu/osr/commons.html",	:target => "_blank"
+%tr
+	%td.title= f.label :degrees, "Degree(s)"
+	%td= f.text_field :degrees
+	%td.notes
+		Please enter #{pronoun} advanced degrees such as PhD or MD #{completion}.
+		Use a comma to separate multiple degrees.
+%tr
+	%td.title
+		= f.label :business_phone
+	%td
+		= f.text_field :business_phone
+	%td.notes
+		Please enter #{pronoun} best contact phone number #{completion}.
+%tr
+	%td.title= f.label :title, "Title"
+	%td= f.text_field :title
+	%td.notes
+		Please enter #{pronoun} faculty rank (Professor, Associate Professor, etc) #{completion}.
+%tr
+	%td.title
+		= f.label :primary_department
+	%td
+		= f.text_area :primary_department, {:rows => 4, :cols => 40, :wrap=>"virtual"}
+	%td.notes
+		Please enter the University unit that holds #{pronoun} primary appointment #{completion}.
+%tr
+	%td.title= f.label :campus
+	%td= f.text_field :campus
+	%td.notes
+		Please enter #{pronoun} main campus (Twin Cities, Crookston, Duluth, Morris, Rochester, or Other University locations) #{completion}.
+%tr
+	%td.title= f.label :campus_address
+	%td= f.text_area :campus_address, {:rows => 4, :cols => 40, :wrap=>"virtual"}
+	%td.notes	Please enter #{pronoun} campus mailing address #{completion}.
+%tr
+	%td= f.label :uploaded_biosketch, "Biosketch Document"
+	%td.notes{colspan: 2}
+		= f.file_field("uploaded_biosketch")
+		&nbsp; &nbsp;
+		- unless applicant.biosketch_document_id.blank?
+			%i= link_to_file(applicant.biosketch_document_id, "#{applicant.biosketch.file_file_name}").html_safe
+			Biosketch saved on
+			= (applicant.biosketch.last_updated_at||applicant.biosketch.updated_at).to_s(:justdate)
+			%br
+			:markdown
+				This is your default biosketch. It will be used as the biosketch for applications where you are named as key personnel(*not* as PI) and as the default biosketch for any new proposals you submit in NUCATS Assist. You can customize your biosketch for each proposal in the 'manage documents' form once you have created the proposal submission.
+		- else
+			Please upload #{pronoun} NIH Biosketch#{completion}
+			= link_to_nih_biosketch_info.html_safe
+%tr
+	%td.title.info{colspan: 3}
+		Please fill in the following only if you have an off-campus address
+%tr
+	%td.title
+		= f.label :address
+	%td
+		= f.text_area :address, {:rows => 4, :cols => 40, :wrap=>"virtual"}
+	%td.notes	Please enter #{pronoun} mailing address if off-campus #{completion}.
+%tr
+	%td.title= f.label :city, "City, Postal Code, State"
+	%td
+		= f.text_field :city, :size => 20
+		&nbsp;
+		= f.text_field :postal_code, :size => 6
+		&nbsp;
+		= f.text_field :state, :size => 4
+	%td.notes Please enter #{pronoun} mailing address city, postal code, state #{completion}.
+%tr
+	%td.title= f.label :country
+	%td= f.text_field :country
+	%td.notes	Please enter country, if not USA

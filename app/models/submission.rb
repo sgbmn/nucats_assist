@@ -100,13 +100,14 @@ class Submission < ActiveRecord::Base
   after_save :save_documents
 
   accepts_nested_attributes_for :applicant
-  attr_accessible *column_names
-  attr_accessible :applicant_biosketch_document, :application_document, :budget_document, :other_support_document
-  attr_accessible :uploaded_application, :uploaded_other_support, :uploaded_budget, :uploaded_biosketch
-  attr_accessible :document1, :document2, :document3, :document4
-  attr_accessible :supplemental_document, :uploaded_supplemental_document
-  attr_accessible :uploaded_document1, :uploaded_document2, :uploaded_document3, :uploaded_document4
-  attr_accessible :applicant, :submitter, :effort_approver, :core_manager, :department_administrator
+  attr_accessible *column_names, :applicant_biosketch_document, :application_document, 
+    :budget_document, :other_support_document, :uploaded_application,
+    :uploaded_other_support, :uploaded_budget, :uploaded_biosketch, :document1, 
+    :document2, :document3, :document4, :supplemental_document, 
+    :uploaded_supplemental_document, :uploaded_document1, :uploaded_document2, 
+    :uploaded_document3, :uploaded_document4, :applicant, :submitter, :effort_approver, 
+    :core_manager, :department_administrator, :department_administrator_username,
+    :applicant_biosketch_document_id
 
   attr_accessor :max_budget_request
   attr_accessor :min_budget_request

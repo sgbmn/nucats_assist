@@ -134,7 +134,7 @@ class SubmissionsController < ApplicationController
     end
 
     respond_to do |format|
-      params[:submission].delete(:id)  # id causes an error  - can't mass assign id
+      # params[:submission].delete(:id)  # id causes an error  - can't mass assign id
       if @submission.update_attributes(params[:submission])
         flash[:errors] = nil
         send_submission_email(@submission)

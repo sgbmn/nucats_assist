@@ -16,6 +16,7 @@ gem 'net-ldap'
 gem 'bcdatabase'
 
 gem 'portal_app_core', :git => 'ssh://git@fscode.ahc.umn.edu:7999/CTSIPORTAL/portal_app_core.git'
+gem 'redcarpet'
 
 # Authorization
 # TODO: remove aker in favor of omniauth
@@ -50,6 +51,8 @@ group :development do
   gem 'annotate', '~> 2.5.0'
   gem 'debugger'
   gem 'ruby-debug-passenger'
+  gem 'binding_of_caller'
+  gem 'meta_request'
 end
 
 gem 'prototype-rails'

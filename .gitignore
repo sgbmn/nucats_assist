@@ -6,6 +6,7 @@ bin/
 tmp/restart.txt
 tmp/cache
 tmp/pids
+tmp/data/meta_request/*
 assets/files/
 coverage/
 public/assets/
