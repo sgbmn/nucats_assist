@@ -53,14 +53,14 @@
 - if project.show_core_manager
   %tr
     %td
-      = f.label :core_manager_username, "Core Manager x500"
+      = f.label :core_manager_username, "Core Manager Internet ID"
     %td.notrequired
       = f.text_field :core_manager_username
       = netid_lookup_tag.html_safe
       = netid_lookup_observer(:submission_core_manager_username).html_safe
       %span#submission_core_manager_username_id
       = netid_lookup_function(:submission_core_manager_username, false).html_safe
-    %td.notes Please enter the x500 of the Core Manager
+    %td.notes Please enter the Internet ID of the Core Manager
 - if project.show_abstract_field
   %tr
     %td.title= f.label :abstract
@@ -197,7 +197,7 @@
       = f.text_area :conflict_explanation, { rows: 4, wrap: "virtual", class: "narrow"}
 - if project.show_department_administrator
   %tr
-    %td= f.label :department_administrator_username, "Contact x500"
+    %td= f.label :department_administrator_username, "Contact Internet ID"
     %td.notrequired
       = f.text_field :department_administrator_username
       = netid_lookup_tag.html_safe
@@ -205,7 +205,7 @@
       %span#submission_department_administrator_username_id
       = netid_lookup_function(:submission_department_administrator_username, false).html_safe
     %td.notes
-      Please enter the x500 of your 
+      Please enter the Internet ID of your 
       =  project.department_administrator_title
 - if project.show_committee_review_approval
   %tr
@@ -215,14 +215,14 @@
       Please check if you have received the approval of your review committee for this request.
 - if project.show_effort_approver
   %tr
-    %td= f.label :effort_approver_username, "#{project.effort_approver_title.capitalize} x500"
+    %td= f.label :effort_approver_username, "#{project.effort_approver_title.capitalize} Internet ID"
     %td.notrequired
       = f.text_field :effort_approver_username
       = netid_lookup_tag.html_safe
       = netid_lookup_observer(:submission_effort_approver_username).html_safe
       %span#submission_effort_approver_username_id
       = netid_lookup_function(:submission_effort_approver_username, false).html_safe
-      %td.notes Please enter the x500 of your <%= project.effort_approver_title
+      %td.notes Please enter the Internet ID of your <%= project.effort_approver_title
 
 :javascript
   textCounter(document.forms[0].submission_submission_title, 'submission_title_cnt', 81)
