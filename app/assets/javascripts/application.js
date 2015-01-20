@@ -15,7 +15,7 @@
 //= require effects
 //= require dragdrop
 //= require facebox
-//= require jquery.validate
+// require jquery.validate
 //= require additional-methods
 //= require facebox
 //= require_self

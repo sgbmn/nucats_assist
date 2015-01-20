@@ -237,7 +237,7 @@ class Project < ActiveRecord::Base
   end
 
   def applicant_abbreviation_wording=(wording)
-    write_attribuite :applicant_abbr_wording, wording
+    write_attribute :applicant_abbr_wording, wording
   end
 
   def max_assigned_reviewers_per_proposal
@@ -245,7 +245,7 @@ class Project < ActiveRecord::Base
   end
 
   def max_assigned_reviewers_per_proposal=(max)
-    write_attribuite :max_assig_reviewers_per_prop, max
+    write_attribute :max_assig_reviewers_per_prop, max
   end
 
   def max_assigned_proposals_per_reviewer
@@ -253,7 +253,7 @@ class Project < ActiveRecord::Base
   end
 
   def max_assigned_proposals_per_reviewer=(max)
-    write_attribuite :max_assig_props_per_reviewer, max
+    write_attribute :max_assig_props_per_reviewer, max
   end
 
   def applicant_abbreviation_wording
@@ -261,7 +261,7 @@ class Project < ActiveRecord::Base
   end
 
   def applicant_abbreviation_wording=(abbr)
-    write_attribuite :applicant_abbr_wording, abbr
+    write_attribute :applicant_abbr_wording, abbr
   end
 
   def department_administrator_title
@@ -269,7 +269,7 @@ class Project < ActiveRecord::Base
   end
 
   def department_administrator_title=(title)
-    write_attribuite :department_admin_title, title
+    write_attribute :department_admin_title, title
   end
 
   def show_previous_support_description
@@ -277,7 +277,7 @@ class Project < ActiveRecord::Base
   end
 
   def show_previous_support_description=(show)
-    write_attribuite :show_previous_support_descr, show
+    write_attribute :show_previous_support_descr, show
   end
 
   def show_composite_scores_to_applicants
@@ -285,7 +285,7 @@ class Project < ActiveRecord::Base
   end
 
   def show_composite_scores_to_applicants=(show)
-    write_attribuite :show_comp_scores_to_applicants, show
+    write_attribute :show_comp_scores_to_applicants, show
   end
 
   def show_composite_scores_to_reviewers
@@ -293,7 +293,7 @@ class Project < ActiveRecord::Base
   end
 
   def show_composite_scores_to_reviewers=(show)
-    write_attribuite :show_comp_scores_to_reviewers, show
+    write_attribute :show_comp_scores_to_reviewers, show
   end
 
   def show_review_summaries_to_applicants
@@ -301,7 +301,7 @@ class Project < ActiveRecord::Base
   end
 
   def show_review_summaries_to_applicants=(show)
-    write_attribuite :show_review_summ_to_applicants, show
+    write_attribute :show_review_summ_to_applicants, show
   end
 
   def show_review_summaries_to_reviewers
@@ -309,7 +309,7 @@ class Project < ActiveRecord::Base
   end
 
   def show_review_summaries_to_reviewers=(show)
-    write_attribuite :show_review_summ_to_reviewers, show
+    write_attribute :show_review_summ_to_reviewers, show
   end
 
   def submission_category_description
@@ -317,7 +317,7 @@ class Project < ActiveRecord::Base
   end
 
   def submission_category_description=(descr)
-    write_attribuite :submission_category_descr, descr
+    write_attribute :submission_category_descr, descr
   end
 
   def supplemental_document_description
@@ -325,7 +325,7 @@ class Project < ActiveRecord::Base
   end
 
   def supplemental_document_description=(name)
-    write_attribuite :supplemental_document_descr, name
+    write_attribute :supplemental_document_descr, name
   end
 
   def supplemental_document_name

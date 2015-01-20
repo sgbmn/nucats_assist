@@ -7,16 +7,13 @@
   by applicant
   %i= @submission.applicant.name
 
-= form_for :submission, :url => submission_path(@submission.id), :html => { :multipart => true, :method => :put, :id => 'submission_form' } do |f|
+= simple_form_for :submission, :url => submission_path(@submission.id), :html => { :multipart => true, :method => :put, :id => 'submission_form', class: 'form-horizontal' } do |f|
   = f.hidden_field :submission_status
   = f.hidden_field :id
 
-  %table.table.table-bordered
-    = render 'documents_form', :f => f, :project => @project, :submission => @submission, :applicant => @applicant
-    = render 'key_personnel_form', :f => f, :project => @project, :submission => @submission, :applicant => @applicant
-    %tr
-      %td{colspan: 3, align: "center"}
-        = f.submit 'Submit', class: 'btn btn-success'
+  = render 'documents_form', :f => f, :project => @project, :submission => @submission, :applicant => @applicant
+  / = render 'key_personnel_form', :f => f, :project => @project, :submission => @submission, :applicant => @applicant
+  = f.submit 'Submit', class: 'btn btn-success'
 
 %br
 = link_to 'List of submissions', project_submissions_path(@submission.project_id)
