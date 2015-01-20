@@ -198,6 +198,9 @@ GEM
     shoulda-context (1.2.1)
     shoulda-matchers (2.6.2)
       activesupport (>= 3.0.0)
+    simple_form (2.1.2)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
     sprockets (2.2.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -259,6 +262,7 @@ DEPENDENCIES
   sass-rails (~> 3.2)
   searchlight
   shoulda
+  simple_form
   therubyracer
   uglifier (>= 1.0.3)
   will_paginate

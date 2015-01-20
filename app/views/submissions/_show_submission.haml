@@ -1,0 +1,146 @@
+%table.lined{:width => "95%"}
+  %tr
+    %td{:colspan => "4", :style => "text-align:center;"}
+      %p.h2= submission.project.program.program_title
+      %p.h2= submission.project.project_title
+  %tr
+    %td{:colspan => "4"}
+      %p= submission.project.title_wording
+      = h submission.submission_title
+  - if submission.project.show_abstract_field
+    %tr
+      %td{:colspan => "4"}
+        %p Abstract
+        = submission.abstract
+  %tr
+    %td{:colspan => "2"}
+      %p= submission.project.applicant_wording
+      = h submission.applicant.name
+    %td{:colspan => "2"}
+      %p Degrees
+      = h submission.applicant.degrees
+  %tr
+    %td{:colspan => "2"}
+      %p Rank
+      = h submission.applicant.title
+    %td{:colspan => "2", :rowspan => "2"}
+      %p Address
+      = h submission.applicant.campus
+      %br/
+      = h submission.applicant.campus_address
+      %br/
+  %tr
+    %td{:colspan => "2"}
+      %p Department
+      = h submission.applicant.primary_department
+  %tr
+    %td{:colspan => "2"}
+      %p Telephone
+      = h submission.applicant.business_phone
+    %td{:colspan => "2"}
+      %p Email
+      = h submission.applicant.email
+  - if submission.project.show_core_manager || submission.project.show_department_administrator
+    %tr
+      - if submission.project.show_core_manager
+        %td{:colspan => "2"}
+          %p Core Manager
+          = submission.core_manager.name unless submission.core_manager.blank?
+      - if submission.project.show_department_administrator
+        %td{:colspan => "2"}
+          %p= submission.project.department_administrator_title
+          = h submission.department_administrator.name unless submission.department_administrator.blank?
+      - unless submission.project.show_core_manager or submission.project.show_department_administrator
+        %td{:colspan => "2"}
+          %p  
+  %tr
+    - if submission.project.show_effort_approver
+      %td{:colspan => "2"}
+        %p= submission.project.effort_approver_title
+        = h submission.effort_approver.name unless submission.effort_approver.blank?
+    %td{:colspan => "2"}
+      %p Submitted by
+      = submission.submitter.name unless submission.submitter.blank?
+  - if submission.project.show_human_subjects_research or submission.project.show_irb_approved or submission.project.show_irb_study_num or submission.project.show_use_nucats_cru
+    %tr
+      %td
+        %p Human Subjects Research
+        = long_format_boolean submission.is_human_subjects_research
+      %td
+        %p IRB Approved
+        = long_format_boolean submission.is_irb_approved
+      %td
+        %p IRB Study
+        = submission.irb_study_num
+      %td
+        %p Uses NUCATS CRU?
+        = long_format_boolean submission.use_nucats_cru
+        Contact: #{submission.nucats_cru_contact_name}
+  - if submission.project.show_use_stem_cells or submission.project.show_use_embryonic_stem_cells
+    %tr
+      %td{:colspan => "2"}
+        %p Does the research use stem cells?
+        = long_format_boolean submission.use_stem_cells
+      %td{:colspan => "2"}
+        %p Does the research use embryonic stem cells?
+        = long_format_boolean submission.use_embryonic_stem_cells
+  - if submission.project.show_use_vertebrate_animals or submission.project.show_iacuc_approved
+    %tr
+      %td{:colspan => "2"}
+        %p Vertebrate Animals
+        = long_format_boolean submission.use_vertebrate_animals
+      %td{:colspan => "2"}
+        %p Has IACUC Approval? (not required)
+        = long_format_boolean submission.is_iacuc_approved
+        IACUC#: #{h submission.iacuc_study_num}
+  %tr
+    %td{:colspan => "2"}
+      %p Proposed Period of Support
+      = submission.project.project_period_start_date.to_s(:justdate)
+      to #{submission.project.project_period_end_date.to_s(:justdate)}
+    %td{:colspan => "2"}
+      - if submission.project.show_project_cost
+        %p= submission.project.direct_project_cost_wording
+        $#{submission.direct_project_cost}
+  - if submission.project.show_cost_sharing_amount or submission.project.show_cost_sharing_organization
+    %tr
+      %td{:colspan => "2"}
+        %p Cost Sharing Amount
+        $#{submission.cost_sharing_amount}
+      %td{:colspan => "2"}
+        %p Cost Sharing Organization(s)
+        %pre= submission.cost_sharing_organization
+  - if submission.project.show_received_previous_support or submission.project.show_previous_support_description
+    %tr
+      %td{:colspan => "2"}
+        %p Received previous support from this competition?
+        = long_format_boolean submission.received_previous_support
+      %td{:colspan => "2"}
+        %p Detailed description of previous support
+        = submission.previous_support_description
+  - if submission.project.show_is_new or submission.project.show_not_new_explanation
+    %tr
+      %td{:colspan => "2"}
+        %p= submission.project.is_new_wording
+        = long_format_boolean submission.is_new
+        - if submission.project.show_not_new_explanation
+          If not, please explain: #{h submission.not_new_explanation}
+      %td{:colspan => "2"}
+        - if submission.project.show_use_nmh or submission.project.show_use_nmff or submission.project.show_use_va or submission.project.show_use_ric or submission.project.show_use_cmh
+          %p Will this project require facilities, resources or patients at any of the following:
+          NMH: #{long_format_boolean submission.use_nmh}
+          NMFF: #{long_format_boolean submission.use_nmff}
+          VA: #{long_format_boolean submission.use_va}
+          RIC: #{long_format_boolean submission.use_ric}
+          CMH: #{long_format_boolean submission.use_cmh}
+  - if submission.project.show_other_funding_sources
+    %tr
+      %td{:colspan => "4"}
+        %p Are there alternative sources of funding. If so, please explain.
+        = h submission.other_funding_sources
+  - if submission.project.show_is_conflict
+    %tr
+      %td{:colspan => "4"}
+        %p Are there any potential conflicts of interest? If so, please explain.
+        = long_format_boolean submission.is_conflict
+        = h submission.conflict_explanation

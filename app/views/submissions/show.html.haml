@@ -1,0 +1,6 @@
+= render :partial => 'show_submission', :locals=>{:submission=>@submission}
+
+%br/
+%p
+  &nbsp;
+  = link_to 'Back', project_submissions_path(@submission.project_id)

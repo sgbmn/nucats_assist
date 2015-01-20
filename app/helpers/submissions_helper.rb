@@ -90,19 +90,19 @@ module SubmissionsHelper
   end
 
   def link_to_document1_template_info(project)
-    link_to_document_template(project, 1) + link_to_document_info(project, 1) + '.'
+    link_to_document_template(project, 1).html_safe + link_to_document_info(project, 1).html_safe
   end
 
   def link_to_document2_template_info(project)
-    link_to_document_template(project, 2) + link_to_document_info(project, 2) + '.'
+    link_to_document_template(project, 2) + link_to_document_info(project, 2)
   end
 
   def link_to_document3_template_info(project)
-    link_to_document_template(project, 3) + link_to_document_info(project, 3) + '.'
+    link_to_document_template(project, 3) + link_to_document_info(project, 3)
   end
 
   def link_to_document4_template_info(project)
-    link_to_document_template(project, 4) + link_to_document_info(project, 4) + '.'
+    link_to_document_template(project, 4) + link_to_document_info(project, 4)
   end
 
   def link_to_submission_pdf(submission)
@@ -125,7 +125,7 @@ module SubmissionsHelper
     # image_name = determine_image_name(file_type)
     # link_text+' '+image_tag(image_name, :width=>"16px", :height=>"16px" )
     # currently does not work with Rails 3
-    link_to(link_text, path, title: 'Download ' + mouse_over, target: '_blank')
+    link_to(link_text, path, title: 'Download ' + mouse_over, target: '_blank').html_safe
   end
 
   def determine_image_name(file_type)
