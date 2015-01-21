@@ -12,12 +12,12 @@
 - if project.show_manage_biosketches
   %tr
     %td
-      = f.label :uploaded_biosketch, "PI Biosketch Document"
+      = f.label :uploaded_biosketch, label: "PI Biosketch Document"
     %td.notes{colspan: 2}
       - biosketch_missing = submission.applicant_biosketch_document_id.blank?
       - if biosketch_missing
         %span.glyphicon.glyphicon-warning-sign{aria: {hidden: true}}
-      = f.input "uploaded_biosketch", as: :file, required: biosketch_missing
+      = f.input "uploaded_biosketch", as: :file, label: false, required: biosketch_missing
       &nbsp; &nbsp;
       - if biosketch_missing
         .alert.alert-warning{role: "alert"}
@@ -36,10 +36,11 @@
 
 - if project.show_application_doc
   %tr
-    %td= f.label :uploaded_application, "#{submission.project.application_doc_name} Document"
+    %td
+      = f.label :uploaded_application, label: "#{submission.project.application_doc_name} Document"
     %td.notes{colspan: 2}
       - application_missing = submission.application_document_id.blank?
-      = f.input :uploaded_application, as: :file 
+      = f.input :uploaded_application, as: :file, label: false, requiured: application_missing
       &nbsp; &nbsp;
       - if application_missing
         .alert.alert-warning{role: "alert"}
@@ -56,10 +57,10 @@
 
 - if project.show_budget_form
   %tr
-    %td= f.label :uploaded_budget, "Budget Document"
+    %td= f.label :uploaded_budget, label: "Budget Document"
     %td.notes{colspan: 2}
       - budget_missing = submission.budget_document_id.blank?
-      = f.input :budget_document, as: :file
+      = f.input :budget_document, as: :file, label: false, required: :budget_missing
       &nbsp; &nbsp;
       - if budget_missing
         .alert.alert-warning{role: "alert"}
@@ -76,10 +77,10 @@
 
 - if project.show_manage_other_support
   %tr
-    %td= f.label :uploaded_other_support, "NIH Other Support Document"
+    %td= f.label :uploaded_other_support, label: "NIH Other Support Document"
     %td.notes{colspan: 2}
       - other_support_missing = submission.other_support_document_id.blank?
-      = f.input "uploaded_other_support", as: :file, required: other_support_missing
+      = f.input "uploaded_other_support", as: :file, label: false, required: other_support_missing
       &nbsp; &nbsp;
       - if other_support_missing
         .alert.alert-warning{role: "alert"}
@@ -95,10 +96,10 @@
 - if project.show_document1
   %tr
     %td
-      = f.label :uploaded_document1, "#{submission.project.document1_name} Document"
+      = f.label :uploaded_document1, label: "#{submission.project.document1_name} Document"
     %td.notes{colspan: 2}
       - document1_missing = submission.document1_id.blank?
-      = f.input :uploaded_document1, as: :file, required: document1_missing
+      = f.input :uploaded_document1, as: :file, label: false, required: document1_missing
       &nbsp; &nbsp;
       - if document1_missing
         .alert.alert-warning{role: "alert"}
@@ -115,10 +116,10 @@
 
 - if project.show_document2
   %tr
-    %td= f.label :uploaded_document2, "#{submission.project.document2_name} Document"
+    %td= f.label :uploaded_document2, label: "#{submission.project.document2_name} Document"
     %td.notes{colspan: "2"}
       - document2_missing = submission.document2_id.blank?
-      = f.input :uploaded_document2, as: :file, required: document2_missing
+      = f.input :uploaded_document2, as: :file, label: false, required: document2_missing
       &nbsp; &nbsp;
       - if document2_missing
         .alert.alert-warning{role: "alert"}
@@ -134,10 +135,10 @@
 - if project.show_document3
   %tr
     %td
-      = f.label :uploaded_document3, "#{submission.project.document3_name} Document"
+      = f.label :uploaded_document3, label: "#{submission.project.document3_name} Document"
     %td.notes{colspan: 2}
       - document3_missing = submission.document3_id.blank?
-      = f.input :uploaded_document3, as: :file, required: document3_missing
+      = f.input :uploaded_document3, as: :file, label: false, required: document3_missing
       &nbsp; &nbsp;
       - if document3_missing
         .alert.alert-warning{role: "alert"}
@@ -153,10 +154,10 @@
 - if project.show_document4
   %tr
     %td
-      = f.label :uploaded_document4, "#{submission.project.document4_name} Document"
+      = f.label :uploaded_document4, label: "#{submission.project.document4_name} Document"
     %td.notes{colspan: 2}
       - document4_missing = submission.document4_id.blank?
-      = f.input :uploaded_document4, as: :file, required: document4_missing
+      = f.input :uploaded_document4, as: :file, label: false, required: document4_missing
       &nbsp; &nbsp;
       - if document4_missing
         .alert.alert-warning{role: "alert"}
@@ -173,7 +174,7 @@
   %td
     = f.label :uploaded_supplemental_document, submission.project.supplemental_document_name.html_safe
   %td.notes{colspan: 2}
-    = f.input :supplemental_document, as: :file, required: false
+    = f.input :supplemental_document, as: :file, label: false, required: false
     &nbsp; &nbsp;
     - if submission.supplemental_document_id.blank?
       %i= project.supplemental_document_description.html_safe || "Please upload any supplemental document."

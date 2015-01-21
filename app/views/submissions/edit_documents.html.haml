@@ -11,8 +11,9 @@
   = f.hidden_field :submission_status
   = f.hidden_field :id
 
-  = render 'documents_form', :f => f, :project => @project, :submission => @submission, :applicant => @applicant
-  / = render 'key_personnel_form', :f => f, :project => @project, :submission => @submission, :applicant => @applicant
+  %table.table.table-bordered
+    = render 'documents_form', :f => f, :project => @project, :submission => @submission, :applicant => @applicant
+    = render 'key_personnel_form', :f => f, :project => @project, :submission => @submission, :applicant => @applicant
   = f.submit 'Submit', class: 'btn btn-success'
 
 %br
