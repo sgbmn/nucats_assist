@@ -240,6 +240,16 @@
         Check to include the
         %b application document
         upload file form item
+
+  %tr
+    %td
+      = f.label :application_required, label: "Require application doc"
+    %td{colspan: 2}
+      = f.input :application_required, label: false
+      .attribute_description
+        Check to require the
+        %strong application document
+
   %tr
     %td.title
       = f.label :application_doc_name
@@ -300,6 +310,16 @@
         Check to include the
         %b budget form
         submission form item
+        
+  %tr
+    %td
+      = f.label :budget_required, label: "Require budget form"
+    %td{colspan: 2}
+      = f.input :budget_required, label: false
+      .attribute_description
+        Check to require the
+        %strong budget form
+
   %tr
     %td.title
       = f.label :budget_template_url
@@ -346,6 +366,16 @@
         Check to include the ability to include an NIH
         %b biosketch
         document as an uploadable file for the PI and co-investigators
+        
+  %tr
+    %td
+      = f.label :biosketch_required, label: "Require biosketches"
+    %td{colspan: 2}
+      = f.input :biosketch_required, label: false
+      .attribute_description
+        Check to require a
+        %strong biosketch
+
   %tr
     %td.title
       = f.label :show_manage_coinvestigators
@@ -363,7 +393,15 @@
       .attribute_description
         Check to include the
         %b NIH Other Support
-        document as an uploadable file
+        document as an uploadable file   
+  %tr
+    %td
+      = f.label :other_support_required, label: "Require other support text"
+    %td{colspan: 2}
+      = f.input :biosketch_required, label: false
+      .attribute_description
+        Check to require the
+        %strong NIH Other support document
   %tr
     %td.title
       = f.label :manage_other_support_text
@@ -373,6 +411,7 @@
         Text to include with the
         %b NIH Other Support
         document item
+
   %tr
     %td.title
       = f.label :show_document1
@@ -382,6 +421,14 @@
         Check to include
         %b document1
         as an uploadable file
+  %tr
+    %td
+      = f.label :document1_required, label: "Require document1"
+    %td{colspan: 2}
+      = f.input :document1_required, label: false
+      .attribute_description
+        Check to require
+        %strong document1
   %tr
     %td.title
       = f.label :document1_name
@@ -429,6 +476,14 @@
         %b document2
         as an uploadable file
   %tr
+    %td
+      = f.label :document2_required, label: "Require documnet2"
+    %td{colspan: 2}
+      = f.input :document2_required, label: false
+      .attribute_description
+        Check to require
+        %strong document2
+  %tr
     %td.title
       = f.label :document2_name
     %td.notes{:colspan => "2"}
@@ -475,6 +530,14 @@
         %b document3
         as an uploadable file
   %tr
+    %td
+      = f.label :document3_required, label: "Require document3"
+    %td{colspan: 2}
+      = f.input :document3_required, label: false
+      .attribute_description
+        Check to require
+        %strong document3
+  %tr
     %td.title
       = f.label :document3_name
     %td.notes{:colspan => "2"}
@@ -520,6 +583,14 @@
         Check to include
         %b document 4
         as an uploadable file
+  %tr
+    %td
+      = f.label :documnent4_required, label: "Require documnet4"
+    %td{colspan: 2}
+      = f.input :document4_required, label: false
+      .attribute_description
+        Check to require
+        %strong document4
   %tr
     %td.title
       = f.label :document4_name

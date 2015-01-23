@@ -12,10 +12,9 @@
 // require prototype
 //= require amstock
 // require ddsmoothmenu
-//= require effects
+// require effects
 //= require dragdrop
 //= require facebox
 // require jquery.validate
-//= require additional-methods
-//= require facebox
+// require additional-methods
 //= require_self

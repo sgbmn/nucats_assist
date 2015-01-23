@@ -5,6 +5,9 @@ module SubmissionsHelper
   require "#{Rails.root}/app/helpers/application_helper"
   include ApplicationHelper
 
+  def required?(field)
+  end
+
   def link_to_key_personnel_documents(key_people, do_lookup = true, include_name = true)
     out = ''
     key_people.each_with_index do |key_user, index|
