@@ -30,10 +30,9 @@
       = submission.inspect
 %tr
   %td.title
-    = f.label :submission_title, project.title_wording.html_safe
+    = f.label :submission_title, label: project.title_wording.html_safe
   %td
     = f.text_field :submission_title, :size => 81, :maxlength => 81, :required => true, :minlength => 6, :onkeyup => "textCounter(document.forms[0].submission_submission_title,'submission_title_cnt',81)", :onkeydown => "textCounter(document.forms[0].submission_submission_title,'submission_title_cnt',81)"
-    %span.required_marker *
     %span#submission_title_cnt
   %td.notes Please make the title between 6 and 81 characters, including spaces and punctuation
 - if project.show_submission_category
@@ -91,7 +90,7 @@
       = link_to "NUCATS Clinical Research Unit", "http://www.nucats.northwestern.edu/resources-services/research-study-support/", :target=>"_blank"
 - if project.show_nucats_cru_contact_name
   %tr
-    %td= f.label :nucats_cru_contact_name, "NUCATS CRU contact"
+    %td= f.label :nucats_cru_contact_name, label: "NUCATS CRU contact"
     %td= f.text_field :nucats_cru_contact_name, :required => true
     %td.notes
       Please enter your CRU contact, if you will make use of the NUCATS CRU.
@@ -99,19 +98,19 @@
       = mail_to("b-ferry@northwestern.edu", "Barb Ferry at b-ferry@northwestern.edu", :subject => "CRU usage for a NUCATS Assist Competition", :encode => "javascript", :title => "Click to send Barb Ferry an email") 
 - if project.show_use_stem_cells
   %tr
-    %td.title= f.label :use_stem_cells
+    %td.title= f.label :use_stem_cells, required: false
     %td.notes{colspan: 2}
       = f.check_box :use_stem_cells
       Please check if this research will involve the collection, derivation or use of human stem cells
 - if project.show_use_embryonic_stem_cells
   %tr
-    %td.title= f.label :use_embryonic_stem_cells
+    %td.title= f.label :use_embryonic_stem_cells, required: false
     %td.notes{colspan: 2}
       = f.check_box :use_embryonic_stem_cells
       Please check if this project will involve embryonic human stem cells
 - if project.show_use_vertebrate_animals
   %tr
-    %td.title= f.label :use_vertebrate_animals
+    %td.title= f.label :use_vertebrate_animals, required: false
     %td.notes{colspan: 2}
       = f.check_box :use_vertebrate_animals
       Please check if this project will make use of vertebrate animals
@@ -121,7 +120,7 @@
     From #{project.project_period_start_date} through #{project.project_period_end_date}.
 - if project.show_project_cost
   %tr
-    %td= f.label :direct_project_cost, project.direct_project_cost_wording
+    %td= f.label :direct_project_cost, label: project.direct_project_cost_wording
     %td= f.text_field :direct_project_cost, required: true, min: project.min_budget_request, max: project.max_budget_request
     %td.notes
       - unless project.direct_project_cost_wording.blank?
@@ -141,7 +140,7 @@
     %td.notes Please list the organization(s) providing the cost sharing
 - if project.show_received_previous_support
   %tr
-    %td= f.label :received_previous_support
+    %td= f.label :received_previous_support, required: false
     %td.notes{colspan: 2}
       = f.check_box :received_previous_support
       Please check if you received Office of Research support for equipment or
@@ -154,7 +153,7 @@
         = f.text_area :previous_support_description, :rows => 3, :cols => 80, :wrap => "virtual", :required => true
 - if project.show_is_new 
   %tr
-    %td= f.label :is_new, project.is_new_wording
+    %td= f.label :is_new, label: project.is_new_wording, required: true
     %td.notes{colspan: 2}
       = f.check_box :is_new
       Please check if this is a new proposal.
@@ -183,7 +182,7 @@
           CMH &nbsp; &nbsp; 
 - if project.show_other_funding_sources
   %tr
-    %td.title= f.label :other_funding_sources, project.other_funding_sources_wording.html_safe
+    %td.title= f.label :other_funding_sources, label: project.other_funding_sources_wording.html_safe
     %td.notrequired= f.text_area :other_funding_sources, rows: 4, wrap: "virtual", class: "narrow", required: true
     %td.notes
       Are there alternative sources of funding for this project? Please list current support and
@@ -209,7 +208,7 @@
       =  project.department_administrator_title
 - if project.show_committee_review_approval
   %tr
-    %td= f.label :committee_review_approval
+    %td= f.label :committee_review_approval, required: false
     %td.notes{colspan: 2}
       = f.check_box :committee_review_approval
       Please check if you have received the approval of your review committee for this request.

@@ -37,7 +37,6 @@
     %td
       = f.label :uploaded_application, label: "#{submission.project.application_doc_name} Document", required: application_required
     %td.notes{colspan: 2}
-      = application_required
       %p= f.input :uploaded_application, as: :file, label: false, required: application_required
       - if application_missing
         .alert.alert-warning{role: "alert"}
