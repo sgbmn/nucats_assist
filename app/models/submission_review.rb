@@ -53,7 +53,7 @@ class SubmissionReview < ActiveRecord::Base
   has_one :applicant,  :class_name => 'Nucats::User', :through => :submission, :source => :applicant # doesn't seem to work
   has_one :project, :through => :submission # doesn't seem to work
   belongs_to :reviewer, :class_name => 'Nucats::User', :foreign_key => 'reviewer_id'
-  belongs_to :user, :foreign_key => 'reviewer_id'
+  belongs_to :user, class_name: 'Nucats::User', :foreign_key => 'reviewer_id'
 
   default_scope order('submission_id')
   scope :load_all, joins([:applicant])

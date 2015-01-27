@@ -1,0 +1,10 @@
+%ul#assigned_submission_list
+  = "&nbsp;".html_safe if reviewer.submission_reviews.this_project(project.id).size < 1
+  - reviewer.submission_reviews.this_project(project.id).each do |item|
+    - domid = "submission_review_#{item.id}"
+    %li.assigned_submission{:id => domid, data: {id: item.id}}
+      PI: #{item.submission.applicant.name}; Title: #{truncate_words(item.submission.submission_title, 20)}
+    :coffee
+      $("##{domid}").draggable
+        revert: true
+    / = draggable_element(domid, ghosting: true, revert: true)

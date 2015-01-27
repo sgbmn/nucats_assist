@@ -1,0 +1,2 @@
+$("#assigned_submissions_<%= @reviewer.id %>").html("<%= escape_javascript(render(partial: 'assigned_submissions', locals: { reviewer: @reviewer, project: @project })) %>")
+$("unassigned_submissions").html("<= escape_javascript(render(partial: 'unassigned_submissions', locals: { unfilled_submissions: @unfilled_submissions })) %>")
