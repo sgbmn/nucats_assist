@@ -1,0 +1,20 @@
+!!!
+%html{:lang => "en", "xml:lang" => "en", :xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html;charset=UTF-8", "http-equiv" => "content-type"}/
+    = csrf_meta_tag
+    %title
+      NUCATS Assist: #{controller.action_name}
+    = javascript_include_tag 'application'
+    = stylesheet_link_tag 'application'
+    %link{:href => image_path("favicon.ico"), :rel => "shortcut icon"}/
+    :css
+      #search {
+        background: url(#{image_path("titlebar.jpg")}) ;
+      }
+  %body
+    = render "shared/js_warning"
+    #main.autoclear
+      = render 'shared/banner'
+      #content
+        = yield

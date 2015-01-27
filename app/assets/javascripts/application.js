@@ -6,6 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require jquery.tablesorter.min
 //= require bootstrap-sprockets
 // require jquery_noconflict
@@ -13,8 +14,8 @@
 //= require amstock
 // require ddsmoothmenu
 // require effects
-//= require dragdrop
-//= require facebox
+// require dragdrop
+// require facebox
 // require jquery.validate
 // require additional-methods
 //= require_self

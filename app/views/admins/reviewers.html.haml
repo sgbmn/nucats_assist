@@ -24,7 +24,21 @@
         .alert.alert-info Click and drag a submission to a reviewer on the left.
         = render 'unassigned_submissions', unfilled_submissions: @unfilled_submissions
 / START: define targets - need this just once
-= drop_receiving_element('unassigned_submissions2', accept: 'assigned_submission', hoverclass: 'hover', confirm: "Are you sure you want to delete this review?", with: "'submission_review_id=' + encodeURIComponent(element.id.split('_').last())", url: { action: :unassign_submission })                                             |
+:coffee
+  $("#unassigned_submissions2").droppable
+    tolerance: "pointer"
+    hoverClass: "hover"
+    drop: (event, ui) ->
+      $.ajax
+        type: 'POST'
+        dataType: 'script'
+        beforeSend: ->
+          confirm("Are you sure you want to delete this review?")
+        url: "#{unassign_submission_project_admins_url(@project.id)}"
+        data:
+          submission_review_id: ui.draggable.data('id')
+          authenticity_token: "#{form_authenticity_token}"
+/ = drop_receiving_element('unassigned_submissions2', accept: 'assigned_submission', hoverclass: 'hover', confirm: "Are you sure you want to delete this review?", with: "'submission_review_id=' + encodeURIComponent(element.id.split('_').last())", url: { action: :unassign_submission })                                             |
 / END: define targets
 %h2
   Add Reviewers #{netid_lookup_tag}
