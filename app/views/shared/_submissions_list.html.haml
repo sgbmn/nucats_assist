@@ -1,6 +1,6 @@
 - include_sponsor_and_competition = 1 if include_sponsor_and_competition.blank?
 - if submissions.blank?
-  %h3 You do not have any existing submissions for this competition.
+  .alert.alert-warning You do not have any existing submissions for this competition.
 - else
   - title ||= "Submissions"
   %h3= title

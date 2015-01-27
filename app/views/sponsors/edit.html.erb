@@ -5,12 +5,13 @@
 
   <%= render('sponsor_form', :f => f, :sponsor => @sponsor) %>
   <p>
-    <%= f.submit 'Update' %>
+    <%= f.submit 'Update Sponsor', class: 'btn btn-school' %>
   </p>
 <% end %>
-
-<%= render('shared/admin_links') %>
-
-<p>
-  <%= link_to "List of all competitions for #{@sponsor.program_title}", sponsor_path(@sponsor.id) %>
-</p>
+<hr>
+<div class="clearfix">
+  <h3>Admin Links</h3>
+  <%= render('shared/admin_links') %>
+</div>
+<hr>
+<%= link_to "List of all competitions for #{@sponsor.program_title}", sponsor_path(@sponsor.id), class: 'btn btn-info' %>

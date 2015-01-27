@@ -3,7 +3,7 @@
   .project
     .apply
       - if project.current_status =~ /open for/i
-        = link_to 'Apply', new_project_applicant_path(project.id), title: "Create an application for you or someone else for the competition '#{project.project_title}'", class: 'btn btn-school'
+        = link_to 'Apply Now', new_project_applicant_path(project.id), title: "Create an application for you or someone else for the competition '#{project.project_title}'", class: 'btn btn-school btn-lg'
       - else
         = project.current_status
       - if show_details

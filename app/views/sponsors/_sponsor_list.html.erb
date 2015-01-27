@@ -28,10 +28,10 @@
           <% end %>
         </td>
         <td>
-          <%= link_to "List (#{sponsor.projects.count})", sponsor_path(sponsor) %>
+          <%= link_to "List (#{sponsor.projects.count})", sponsor_path(sponsor), class: 'btn btn-info' %>
         </td>
         <% if is_admin?(sponsor) %>
-          <td class="list-right"><%= link_to "Edit", edit_sponsor_path(sponsor) %></td>
+          <td class="list-right"><%= link_to "Edit", edit_sponsor_path(sponsor), class: 'btn btn-school' %></td>
         <% end %>
       </tr>
     <% end %>

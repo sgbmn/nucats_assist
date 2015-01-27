@@ -1,0 +1,20 @@
+- include_sponsor_and_competition = 0 unless @project.blank?
+
+#title
+  %h2= current_program.program_title
+  %h4= current_project.project_title
+%hr
+.clearfix
+  = render 'shared/project_list',
+             projects: @projects,
+             show_project_link: true,
+             show_action_links: true,
+             show_details: true
+
+.clearfix
+  = render 'shared/submissions_list',
+             submissions: @submissions,
+             title: 'Your submissions and those you are associated with for this competition',
+             include_sponsor_and_competition: include_sponsor_and_competition 
+
+= render 'shared/admin_links'
