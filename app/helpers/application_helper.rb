@@ -332,33 +332,7 @@ module ApplicationHelper
             'http://www.umn.edu/lookup',
             target: '_blank',
             title: 'Click here to go to the Directory to look up x500s')
-  end
-
-  def netid_lookup_observer(field_name)
-    observe_field( field_name,
-      :frequency => 0.5,
-      :update =>  {:success => field_name.to_s+"_id", :failure => 'flash_notice'},
-      :before => "Element.show('spinner')",
-      :complete => "Element.hide('spinner')",
-      :url => {:controller=>'applicants', :action=>'username_lookup', :only_path => false},
-      :with => "'username=' + encodeURIComponent(value)")
-  end
-
-  def netid_lookup_function(field_name, include_span_tag = true)
-    text = ''
-    text += "<span id='#{field_name}_id'></span>" if include_span_tag
-    if do_ajax?
-      text += javascript_tag do
-        remote_function(
-          update: { success: "#{field_name}_id", failure: 'flash_notice' },
-          before: "Element.show('spinner')",
-          complete: "Element.hide('spinner')",
-          url: { controller: 'applicants', action: 'username_lookup', only_path: false },
-          with: "'username=' + encodeURIComponent( $('" + field_name.to_s + "').getValue())")
-      end
-    end
-    text
-  end
+  end  
 
   def hidden_div_if(condition, attributes = {}, &block)
     attributes['style'] = 'display: none;' if condition

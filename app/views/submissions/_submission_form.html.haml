@@ -47,8 +47,10 @@
     %i= applicant.name
     = f.hidden_field :applicant_id
   %td.notes
-    = link_to "Go back to #{project.applicant_wording} form to edit", edit_project_applicant_path(project.id, applicant.id)
-    = link_to "Enter a submission for a different #{project.applicant_abbreviation_wording}", new_project_applicant_path(project.id)
+    = link_to "Go back to #{project.applicant_wording} form to edit", edit_project_applicant_path(project.id, applicant.id), class: 'btn btn-school'
+    %br
+    %br
+    = link_to "Enter a submission for a different #{project.applicant_abbreviation_wording}", new_project_applicant_path(project.id), class: 'btn btn-school'
 - if project.show_core_manager
   %tr
     %td
@@ -200,9 +202,6 @@
     %td.notrequired
       = f.text_field :department_administrator_username
       = netid_lookup_tag.html_safe
-      = netid_lookup_observer(:submission_department_administrator_username).html_safe
-      %span#submission_department_administrator_username_id
-      = netid_lookup_function(:submission_department_administrator_username, false).html_safe
     %td.notes
       Please enter the Internet ID of your 
       =  project.department_administrator_title
@@ -218,9 +217,7 @@
     %td.notrequired
       = f.text_field :effort_approver_username
       = netid_lookup_tag.html_safe
-      = netid_lookup_observer(:submission_effort_approver_username).html_safe
       %span#submission_effort_approver_username_id
-      = netid_lookup_function(:submission_effort_approver_username, false).html_safe
       %td.notes Please enter the Internet ID of your <%= project.effort_approver_title
 
 :javascript

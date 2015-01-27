@@ -16,8 +16,7 @@
         %span{:style => "float: left; width:325px;"}
           Strengths and weaknesses
         = f.text_area :impact_text, {:rows => 8, :cols => 100, :wrap=>"virtual"}
-        = review_item_observer("impact_score", "#{submission_review.id}")
-        = review_item_observer("impact_text", "#{submission_review.id}")
+        
     - if submission_review.submission.project.show_team_score
       %li
         %p
@@ -32,8 +31,7 @@
         %span{:style => "float: left; width:325px;"}
           Strengths and weaknesses
         = f.text_area :team_text, {:rows => 8, :cols => 100, :wrap=>"virtual"}
-        = review_item_observer("team_score", "#{submission_review.id}")
-        = review_item_observer("team_text", "#{submission_review.id}")
+        
     - if submission_review.submission.project.show_innovation_score
       %li
         %p
@@ -48,8 +46,8 @@
         %span{:style => "float: left; width:325px;"}
           Strengths and weaknesses
         = f.text_area :innovation_text, {:rows => 8, :cols => 100, :wrap=>"virtual"}
-        = review_item_observer("innovation_score", "#{submission_review.id}")
-        = review_item_observer("innovation_text", "#{submission_review.id}")
+    
+    
     - if submission_review.submission.project.show_scope_score
       %li
         %p
@@ -64,8 +62,8 @@
         %span{:style => "float: left; width:325px;"}
           Strengths and weaknesses
         = f.text_area :scope_text, { :rows => 8, :cols => 100, :wrap=>"virtual" }
-        = review_item_observer("scope_score", "#{submission_review.id}")
-        = review_item_observer("scope_text", "#{submission_review.id}")
+    
+    
     - if submission_review.submission.project.show_environment_score
       %li
         %p
@@ -80,8 +78,8 @@
         %span{:style => "float: left; width:325px;"}
           Strengths and weaknesses
         = f.text_area :environment_text, { :rows => 8, :cols => 100, :wrap=>"virtual" }
-        = review_item_observer("environment_score", "#{submission_review.id}")
-        = review_item_observer("environment_text", "#{submission_review.id}")
+    
+    
     - if submission_review.submission.project.show_budget_score
       %li
         %p
@@ -96,8 +94,8 @@
         %span{:style => "float: left; width:325px;"}
           Strengths and weaknesses
         = f.text_area :budget_text, {:rows => 8, :cols => 100, :wrap=>"virtual"}
-        = review_item_observer("budget_score", "#{submission_review.id}")
-        = review_item_observer("budget_text", "#{submission_review.id}")
+    
+    
     - if submission_review.submission.project.show_other_score
       %li
         %p
@@ -112,8 +110,8 @@
         %span{:style => "float: left; width:325px;"}
           Strengths and weaknesses
         = f.text_area :other_text, {:rows => 8, :cols => 100, :wrap=>"virtual"}
-        = review_item_observer("other_score", "#{submission_review.id}")
-        = review_item_observer("other_text", "#{submission_review.id}")
+    
+    
     %hr
     %p
       = submission_review.submission.project.overall_impact_title.html_safe
@@ -127,5 +125,4 @@
     %span{:style => "float: left; width:325px;"}
       = submission_review.submission.project.overall_impact_direction.html_safe
     = f.text_area :overall_text, {:rows => 15, :cols => 100, :wrap=>"virtual"}
-    = review_item_observer("overall_score", "#{submission_review.id}")
-    = review_item_observer("overall_text", "#{submission_review.id}")
+
