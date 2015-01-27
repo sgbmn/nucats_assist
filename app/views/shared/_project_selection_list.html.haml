@@ -1,11 +1,13 @@
-%h1 Current and Recent Competitions
-.project_selection_list
-  - programs.each do |program, projects|
-    .program
-      .program_information
-        - if program.program_url.blank?
-          %h3= program.program_title
-        - else
-          %h3
-            = link_to h(program.program_title), program.program_url, :title => "Get more information on #{program.program_title}", :target => '_blank'
-      = render 'shared/project_list', projects: projects, show_project_link: show_project_link, show_action_links: show_action_links
+.projects
+  %h2 Current and Recent Competitions
+  .project_selection_list
+    - programs.each do |program, projects|
+      .program
+        .program_information
+          - if program.program_url.blank?
+            %h3= program.program_title
+          - else
+            %h3
+              = link_to h(program.program_title), program.program_url, :title => "Get more information on #{program.program_title}", :target => '_blank'
+        %hr
+        = render 'shared/project_list', projects: projects, show_project_link: show_project_link, show_action_links: show_action_links

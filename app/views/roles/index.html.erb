@@ -1,16 +1,15 @@
-<h1>Listing roles for <%= @sponsor.program_title %></h1>
+<h2>Listing roles for <%= @sponsor.program_title %></h2>
 
-<table>
+<table class="table">
   <tr>
-  <th>Name</th>
+    <th>Name</th>
+    <th>&nbsp;</th>
   </tr>
 
-<% @roles.each do |role| %>
-  <tr>
-  <td><%= role.name %></td>
-    <td><%= link_to 'Show', sponsor_role_url(:sponsor_id=>@sponsor.id, :id=>role.id) %></td>
-  </tr>
-<% end %>
+  <% @roles.each do |role| %>
+    <tr>
+      <td><%= role.name %></td>
+      <td><%= link_to 'Show', sponsor_role_url(:sponsor_id=>@sponsor.id, :id=>role.id), class: 'btn btn-school' %></td>
+    </tr>
+  <% end %>
 </table>
-
-<br />

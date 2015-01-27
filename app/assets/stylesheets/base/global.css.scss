@@ -1,0 +1,51 @@
+body {
+  font-family: 'Raleway','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: $body_text;
+  margin-bottom: 40px;
+}
+
+h1, h2, h3, h4, h5 {
+  color: $school_main_color;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 29px;
+}
+
+footer {
+  padding: 0 40px;
+  font-weight: 500;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.btn {
+  border-radius: 0;
+}
+
+.content {
+  padding: 40px;
+}
+
+.mast {
+  position: relative;
+  background-image: url(mast.jpg);
+  background-position: 50% 25%;
+  height: 396px;
+
+  .caption {
+    position: absolute;
+    padding: 10px 20px;
+    width: 100%;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+
+    h3, p {
+      color: white;
+      font-weight: 200;
+    }
+  }
+}

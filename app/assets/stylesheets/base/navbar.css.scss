@@ -1,0 +1,50 @@
+.navbar {
+  margin-bottom: 0;
+  border: 0;
+
+  .main-nav {
+    background: $school_secondary_color;
+  }
+
+  .main-banner {
+    background: $school_main_color;
+    h3 {
+      color: white;
+      font-weight: 300;
+      margin-bottom: 15px;
+    }
+  }
+  
+  .brand-marks {
+    padding: 10px 30px 40px 30px;
+  }
+
+  .brand img {
+    width: 288px;
+    height: 38px;
+  }
+  
+  .username {
+    margin: 10px;
+    color: $school_main_color;
+  }
+
+  .nav {
+    a {
+      font-size: 15px;
+      padding: 10px 15px;
+      color: $body_text;
+      font-weight: 400;
+      //background: $school_main_color;
+
+      &:hover {
+        color: white;
+        background: $school_main_color;
+      }
+    }
+    a.active {
+      color: white;
+      background: $school_main_color;
+    }
+  }
+}

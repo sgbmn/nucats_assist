@@ -1,7 +1,6 @@
 /* tables */
 table.tablesorter {
 	font-family: Arial;
-	background-color: #CDCDCD;
 	border: 0px;
     border-collapse: collapse;
 	margin:10px 0pt 15px;
@@ -10,7 +9,6 @@ table.tablesorter {
 	text-align: left;
 }
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-	background-color: #e6EEEE;
 	border: 0px;
 	font-size: 12pt;
 	padding: 4px;

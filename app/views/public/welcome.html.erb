@@ -1,16 +1,20 @@
-<h1>Welcome to NUCATS Assist</h1>
-
-<p>
-  NUCATS Assist provides tools for investigators and administrators to apply for and run competitions
-  <br/>
-  including pilot projects, research awards, and other sources of funding.
-</p>
-
+<div class="mast">
+  <div class="caption">
+    <h3>Welcome to NUCATS Assist</h3>
+    <p>
+      NUCATS Assist provides tools for investigators and administrators to apply for and run competitions
+      <br/>
+      including pilot projects, research awards, and other sources of funding.
+    </p>
+  </div>
+</div>
 <%= render 'shared/project_selection_list',
            programs: @programs,
            show_project_link: false,
            show_action_links: false %>
 
-How to:
-<%= link_to("Site instructions", image_path("../docs/NUCATS_Assist_Instructions.pdf"),
-            title: "NUCATS Pilot Proposal Web Site Instructions/Help/HowTo") %>
+<div>
+  How to:
+  <%= link_to("Site instructions", image_path("../docs/NUCATS_Assist_Instructions.pdf"),
+              title: "NUCATS Pilot Proposal Web Site Instructions/Help/HowTo") %>
+</div>            

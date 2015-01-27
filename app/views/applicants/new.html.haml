@@ -1,27 +1,28 @@
-%span{style: "float:right; padding: 6px; border:1px solid indigo;"}
-  You will only need to complete this page once <br />but can edit it at any time
+.application
+  %span.completion-warning
+    You will only need to complete this page once <br />but can edit it at any time
 
-%h1= @project.project_title
-%h2 Application Process - Step 1
-%p.text-warning Please enter or review the following Investigator Profile information for this application. You will be able to reassign the applicant if necessary
+  %h2= @project.project_title
+  %h3 Application Process - Step 1
+  %p.text-warning Please enter or review the following Investigator Profile information for this application. You will be able to reassign the applicant if necessary
 
-%table.table.table-bordered
-  = form_tag new_project_applicant_path(:project_id=>params[:project_id]), :method => :get, :id=>"username_form" do
-    %tr
-      %td.title PI Username
-      %td
-        = text_field_tag :username, @applicant.username
-        = link_to_function image_tag("arrow_refresh.png", :style => "margin-left:10px;margin-bottom:-10px;margin-top:-5px;", :title => "click here to reload this page with a new NetID"), "jQuery('#username_form').submit()"
-      %td.notes
-        NUCATS Assist Username #{netid_lookup_tag} for the Principal Investigator.
-        By default, this is the submitter's NUCATS Assist Username.
-        To change, you can enter a new NU NetID and click on the 'reload' icon.
-        %br
-        (Currently this change PI feature works only for Northwestern afflilated personnel.)
+  %table.table.table-bordered
+    = form_tag new_project_applicant_path(:project_id=>params[:project_id]), :method => :get, :id=>"username_form" do
+      %tr
+        %td.title PI Username
+        %td
+          = text_field_tag :username, @applicant.username
+          = link_to_function image_tag("arrow_refresh.png", :style => "margin-left:10px;margin-bottom:-10px;margin-top:-5px;", :title => "click here to reload this page with a new NetID"), "jQuery('#username_form').submit()"
+        %td.notes
+          NUCATS Assist Username #{netid_lookup_tag} for the Principal Investigator.
+          By default, this is the submitter's NUCATS Assist Username.
+          To change, you can enter a new NU NetID and click on the 'reload' icon.
+          %br
+          (Currently this change PI feature works only for Northwestern afflilated personnel.)
 
-  = form_for :applicant, :url => project_applicants_path({ :project_id => params[:project_id], :id => @applicant.id }), :html => { :multipart => true, :method => :post } do |f|
+    = form_for :applicant, :url => project_applicants_path({ :project_id => params[:project_id], :id => @applicant.id }), :html => { :multipart => true, :method => :post } do |f|
 
-    = render :partial => 'applicant_form', :locals => { :f => f, :applicant => @applicant}
-    %tr
-      %td{colspan: 3}
-        = f.submit 'Save Draft and Continue', class: 'btn btn-success'
+      = render :partial => 'applicant_form', :locals => { :f => f, :applicant => @applicant}
+      %tr
+        %td{colspan: 3}
+          = f.submit 'Save Draft and Continue', class: 'btn btn-success'

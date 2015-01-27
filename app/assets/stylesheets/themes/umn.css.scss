@@ -1,0 +1,13 @@
+$school_main_color: #7a0019;
+$school_secondary_color: #ffd75f;
+$school_dark_color: #404d5b;
+
+.btn-school {
+  background: $school_main_color;
+  color: white;
+
+  &:hover {
+    color: $body_text;
+    background: $school_secondary_color;
+  }
+}

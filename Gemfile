@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 
 gem 'bundler'
 gem 'rails', '3.2.21'
+gem 'rack', '1.4.5'
 gem 'ruby-oci8'
 gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.0'
 gem 'haml'
@@ -42,9 +43,6 @@ gem 'faraday'
 # https://github.com/nathanl/searchlight
 gem 'searchlight'
 
-# For Rails 3 upgrade - adds helpers removed from Rails 2
-gem 'prototype_legacy_helper', '0.0.0', :git => 'git://github.com/rails/prototype_legacy_helper.git'
-
 group :development do
   # gem 'capistrano'
   # gem 'capistrano-bundler'
@@ -55,8 +53,6 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request'
 end
-
-gem 'prototype-rails'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2'

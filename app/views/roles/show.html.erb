@@ -1,7 +1,7 @@
 <h2>Manage users with Role '<%= @role.name %>' for sponsor <%= @sponsor.program_title %></h2>
 
 <h3>Current users with role '<%= @role.name %>' (<%= @roles_users.length %>)</h3>
-<table >
+<table class="table">
   <tr>
   <th>User</th>
   <th>Current Roles</th>
@@ -11,14 +11,14 @@
   <tr>
   <td><%= link_to role_user.user.sort_name, applicant_path(role_user.user_id) %></td>
   <td><%= role_user.user.roles_users.for_program(current_program).collect{|ur| ur.role.name}.join(", ") %></td>
-  <td><%= link_to 'Remove Role', remove_sponsor_role_user_rest_url(:sponsor_id=>@sponsor.id, :role_id=>@role.id, :user_id=>role_user.user.id, :id=>role_user.id) %></td>
+  <td><%= link_to 'Remove Role', remove_sponsor_role_user_rest_url(:sponsor_id=>@sponsor.id, :role_id=>@role.id, :user_id=>role_user.user.id, :id=>role_user.id), class: 'btn btn-school' %></td>
   </tr>
 <% end %>
 </table>
 
 
 <h3>List of all users  (<%= @all_users.length %>)</h3>
-<table class="compact">
+<table class="table">
   <tr>
   <th>Users</th>
   <th>&nbsp;</th>
@@ -26,9 +26,9 @@
 <% @all_users.each do |user| %>
   <tr>
   <td><%= link_to user.sort_name, applicant_path(user.id) %></td>
-  <td><%= link_to 'Add Role', add_sponsor_role_user_rest_url(:sponsor_id=>@sponsor.id, :role_id=>@role.id, :user_id=>user.id) %></td>
+  <td><%= link_to 'Add Role', add_sponsor_role_user_rest_url(:sponsor_id=>@sponsor.id, :role_id=>@role.id, :user_id=>user.id), class: 'btn btn-school' %></td>
    </tr>
 <% end %>
 </table>
 
-<%= link_to 'All roles', sponsor_roles_path %>
+<%= link_to 'All roles', sponsor_roles_path, class: 'btn btn-success' %>

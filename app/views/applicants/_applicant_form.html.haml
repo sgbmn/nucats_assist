@@ -25,11 +25,13 @@
 	%td
 		= f.hidden_field :email
 		= applicant.email
+		&nbsp;
 	%td.notes Email, from LDAP
 %tr
 	%td{colaspan: 3}
 		- hidden_div_if(true, :id => "applicant_fields") do
 			= render "applicant_fields", :f => f, :applicant => applicant
+		&nbsp;
 %tr
 	%td.title
 		= f.label :era_commons_name, "eRA Commons"

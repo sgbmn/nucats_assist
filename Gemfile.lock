@@ -1,10 +1,4 @@
 GIT
-  remote: git://github.com/rails/prototype_legacy_helper.git
-  revision: a2cd95c3e3c1a4f7a9566efdab5ce59c886cb05f
-  specs:
-    prototype_legacy_helper (0.0.0)
-
-GIT
   remote: ssh://git@fscode.ahc.umn.edu:7999/CTSIPORTAL/portal_app_core.git
   revision: 637a50de1864fb613984e856c9a30b23f0cf57a8
   specs:
@@ -136,8 +130,6 @@ GEM
       websocket-driver (>= 0.2.0)
     polyglot (0.3.5)
     princely (1.4.1)
-    prototype-rails (3.2.1)
-      rails (~> 3.2)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -251,8 +243,7 @@ DEPENDENCIES
   poltergeist
   portal_app_core!
   princely
-  prototype-rails
-  prototype_legacy_helper (= 0.0.0)!
+  rack (= 1.4.5)
   rails (= 3.2.21)
   rdoc
   redcarpet
