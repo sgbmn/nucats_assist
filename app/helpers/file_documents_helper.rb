@@ -15,7 +15,7 @@ module FileDocumentsHelper
       end
     end
     if lookup_file_type
-      file_name = FileDocument.find(id).file_file_name
+      file_name = Attachment.find(id).file_name
       file_format = file_name.gsub(/(.*)\.([^\.+])/, '\2')
       file_format = 'txt' if file_format == file_name
       file_type = 'pdf' if file_format.to_s == 'pdf'

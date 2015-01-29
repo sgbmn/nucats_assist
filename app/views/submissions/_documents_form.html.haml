@@ -22,9 +22,9 @@
           Please upload #{pronoun} NIH Biosketch#{completion}
           = link_to_nih_biosketch_info.html_safe
       - else
-        = link_to_file submission.applicant_biosketch_document_id, "#{submission.applicant_biosketch_document.file_file_name}"
+        = link_to_file submission.applicant_biosketch_document_id, "#{submission.applicant_biosketch_document.file_name}"
         &nbsp; File saved on 
-        = (submission.applicant_biosketch_document.last_updated_at || submission.applicant_biosketch_document.updated_at).to_s(:justdate)
+        = (submission.applicant_biosketch_document.updated_at || submission.applicant_biosketch_document.updated_at).to_s(:justdate)
         %br
         Uploading your biosketch here only changes the biosketch for this submission - it does not change your default biosketch for your next submission or for any proposals you are listed as key personnel on.
         To change your default biosketch, upload your biosketch in your
@@ -43,7 +43,7 @@
           %span.glyphicon.glyphicon-exclamation-sign{aria: {hidden: true}}
           = project.application_doc_description.html_safe || "Please upload the completed application document."
       - else
-        = link_to_file submission.application_document_id, "Filename: #{submission.application_document.file_file_name}"
+        = link_to_file submission.application_document_id, "Filename: #{submission.application_document.file_name}"
         &nbsp; File saved on
         = submission.application_document.updated_at.to_s(:justdate)
       = link_to_application_template(project).html_safe
@@ -56,7 +56,7 @@
   %tr
     %td= f.label :uploaded_budget, label: "Budget Document", required: budget_required
     %td.notes{colspan: 2}
-      %p= f.input :budget_document, as: :file, label: false, required: budget_required
+      %p= f.input :uploaded_budget, as: :file, label: false, required: budget_required
       - if budget_required
         .alert.alert-warning{role: "alert"}
           %span.glyphicon.glyphicon-exclamation-sign{aria: {hidden: true}}
@@ -64,7 +64,8 @@
       - else
         = link_to_file submission.budget_document_id, "", "spreadsheet"
         %i Budget uploaded. 
-        Filename: = submission.budget_document.file_file_name
+        Filename: 
+        = submission.budget_document.file_name
       = link_to_budget_template(current_project).html_safe
       |
       = link_to_budget_info(current_project).html_safe
@@ -83,7 +84,8 @@
       - else
         = link_to_file submission.other_support_document_id, "", "document"
         %i NIH Other Support uploaded
-        Filename: = submission.other_support_document.file_file_name
+        Filename: 
+        = submission.other_support_document.file_name
       = link_to_other_support_documents.html_safe
     
 - if project.show_document1
@@ -100,7 +102,8 @@
       - else 
         = link_to_file submission.document1_id, "", "document"
         %i #{submission.project.document1_name} uploaded.
-        Filename: =  submission.document1.file_file_name
+        Filename: 
+        =  submission.document1.file_name
       = link_to_document_template(project, 1).html_safe
       |
       = link_to_document_info(project, 1).html_safe
@@ -120,7 +123,7 @@
         = link_to_file submission.document2_id, "", "document"
         %i #{submission.project.document2_name} uploaded.
         Filename: 
-        =  submission.document2.file_file_name
+        =  submission.document2.file_name
       = link_to_document2_template_info submission.project
 
 - if project.show_document3
@@ -138,7 +141,7 @@
         = link_to_file submission.document3_id, "", "document"
         %i #{submission.project.document3_name} uploaded.
         Filename:
-        =  submission.document3.file_file_name
+        =  submission.document3.file_name
       = link_to_document3_template_info submission.project
 
 - if project.show_document4
@@ -156,7 +159,7 @@
         = link_to_file submission.document4_id, "", "document"
         %i #{submission.project.document4_name} uploaded.
         Filename:
-        =  submission.document4.file_file_name
+        =  submission.document4.file_name
       = link_to_document4_template_info submission.project
 
 - supplemental_document_missing = submission.supplemental_document_id.blank?
@@ -165,11 +168,11 @@
   %td
     = f.label :uploaded_supplemental_document, submission.project.supplemental_document_name.html_safe, required: supplemental_document_required
   %td.notes{colspan: 2}
-    %p= f.input :supplemental_document, as: :file, label: false, required: supplemental_document_required
+    %p= f.input :uploaded_supplemental_document, as: :file, label: false, required: supplemental_document_required
     - if submission.supplemental_document_id.blank?
       %i= project.supplemental_document_description.html_safe || "Please upload any supplemental document."
     - else
-      = link_to_file submission.supplemental_document_id, "Filename: #{submission.supplemental_document.file_file_name}"
+      = link_to_file submission.supplemental_document_id, "Filename: #{submission.supplemental_document.file_name}"
       &nbsp;
       File saved on
       = submission.supplemental_document.updated_at.to_s(:justdate)

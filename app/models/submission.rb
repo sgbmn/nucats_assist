@@ -71,6 +71,8 @@
 
 class Submission < ActiveRecord::Base
   self.table_name = 'nucats_submissions'
+  require 'attachment_ams'
+
   belongs_to :project
   belongs_to :applicant,                :class_name => 'Nucats::User', :foreign_key => 'applicant_id'
   belongs_to :submitter,                :class_name => 'Nucats::User', :foreign_key => 'created_id'
@@ -78,15 +80,15 @@ class Submission < ActiveRecord::Base
   belongs_to :core_manager,             :class_name => 'Nucats::User', :primary_key => 'username', :foreign_key => 'core_manager_username'
   belongs_to :department_administrator, :class_name => 'Nucats::User', :primary_key => 'username', :foreign_key => 'department_administrator_username'
 
-  belongs_to :applicant_biosketch_document, :class_name => 'FileDocument', :foreign_key => 'applicant_biosketch_doc_id'
-  belongs_to :application_document,         :class_name => 'FileDocument', :foreign_key => 'application_document_id'
-  belongs_to :budget_document,              :class_name => 'FileDocument', :foreign_key => 'budget_document_id'
-  belongs_to :other_support_document,       :class_name => 'FileDocument', :foreign_key => 'other_support_document_id'
-  belongs_to :document1,                    :class_name => 'FileDocument', :foreign_key => 'document1_id'
-  belongs_to :document2,                    :class_name => 'FileDocument', :foreign_key => 'document2_id'
-  belongs_to :document3,                    :class_name => 'FileDocument', :foreign_key => 'document3_id'
-  belongs_to :document4,                    :class_name => 'FileDocument', :foreign_key => 'document4_id'
-  belongs_to :supplemental_document,        :class_name => 'FileDocument', :foreign_key => 'supplemental_document_id'
+  belongs_to :applicant_biosketch_document, :class_name => 'Attachment', :foreign_key => 'applicant_biosketch_doc_id'
+  belongs_to :application_document,         :class_name => 'Attachment', :foreign_key => 'application_document_id'
+  belongs_to :budget_document,              :class_name => 'Attachment', :foreign_key => 'budget_document_id'
+  belongs_to :other_support_document,       :class_name => 'Attachment', :foreign_key => 'other_support_document_id'
+  belongs_to :document1,                    :class_name => 'Attachment', :foreign_key => 'document1_id'
+  belongs_to :document2,                    :class_name => 'Attachment', :foreign_key => 'document2_id'
+  belongs_to :document3,                    :class_name => 'Attachment', :foreign_key => 'document3_id'
+  belongs_to :document4,                    :class_name => 'Attachment', :foreign_key => 'document4_id'
+  belongs_to :supplemental_document,        :class_name => 'Attachment', :foreign_key => 'supplemental_document_id'
 
   # TODO : determine how many supplemental documents are needed or add a join model to associate many documents
   #        (probably will continue to simply add belongs_to relationships to this model)
@@ -260,58 +262,26 @@ class Submission < ActiveRecord::Base
     project.try(:program).try(:program_name)
   end
 
-  # this will update the applicant's personal biosketch and then add to the submission
-  def uploaded_biosketch=(data_field)
-    unless data_field.blank?
-      self.applicant_biosketch_document = FileDocument.new if applicant_biosketch_document.nil?
-      self.applicant_biosketch_document.uploaded_file = data_field
-      # do not update the applicant's biosketch
-      # self.applicant.uploaded_biosketch = data_field
+  def uploaded_biosketch=(uploaded_file); create_attachment(uploaded_file, :applicant_biosketch_doc_id); end
+  def uploaded_budget=(uploaded_file); create_attachment(uploaded_file, :budget_document_id); end
+  def uploaded_other_support=(uploaded_file); create_attachment(uploaded_file, :other_support_document_id); end
+  def uploaded_document1=(uploaded_file); create_attachment(uploaded_file, :document1_id); end
+  def uploaded_document2=(uploaded_file); create_attachment(uploaded_file, :document2_id); end
+  def uploaded_document3=(uploaded_file); create_attachment(uploaded_file, :document3_id); end
+  def uploaded_document4=(uploaded_file); create_attachment(uploaded_file, :document4_id); end
+  def uploaded_supplemental_document=(uploaded_file); create_attachment(uploaded_file, :supplemental_document_id); end
+  def uploaded_application=(uploaded_file); create_attachment(uploaded_file, :application_document_id); end
+
+  def create_attachment(uploaded_file, attachment_field)
+    if (uploaded_file.is_a? String)
+      write_attribute(attachment_field, nil)
+      nil
+    else
+      attachment_ams = AttachmentAms.new
+      attachment = attachment_ams.create( uploaded_file, 'nucats_submission', self.id )
+      write_attribute(attachment_field, attachment.id)
+      attachment
     end
-  end
-
-  # this defines the connection between the model attribute exposed to the form (uploaded_budget)
-  # and the file_document model
-  def uploaded_budget=(data_field)
-    self.budget_document = FileDocument.new if self.budget_document.nil?
-    self.budget_document.uploaded_file = data_field unless data_field.blank?
-  end
-
-  def uploaded_other_support=(data_field)
-    self.other_support_document = FileDocument.new if self.other_support_document.nil?
-    self.other_support_document.uploaded_file = data_field unless data_field.blank?
-  end
-
-  def uploaded_document1=(data_field)
-    self.document1 = FileDocument.new if self.document1.nil?
-    self.document1.uploaded_file = data_field unless data_field.blank?
-  end
-
-  def uploaded_document2=(data_field)
-    self.document2 = FileDocument.new if self.document2.nil?
-    self.document2.uploaded_file = data_field unless data_field.blank?
-  end
-
-  def uploaded_document3=(data_field)
-    self.document3 = FileDocument.new if self.document3.nil?
-    self.document3.uploaded_file = data_field unless data_field.blank?
-  end
-
-  def uploaded_document4=(data_field)
-    self.document4 = FileDocument.new if self.document4.nil?
-    self.document4.uploaded_file = data_field unless data_field.blank?
-  end
-
-  def uploaded_supplemental_document=(data_field)
-    self.supplemental_document = FileDocument.new if self.supplemental_document.nil?
-    self.supplemental_document.uploaded_file = data_field unless data_field.blank?
-  end
-
-  # this defines the connection between the model attribute exposed to the form (uploaded_application)
-  # and the storage fields for the file
-  def uploaded_application=(data_field)
-    self.application_document = FileDocument.new if self.application_document.nil?
-    self.application_document.uploaded_file = data_field unless data_field.blank?
   end
 
   def clean_params
@@ -345,29 +315,11 @@ class Submission < ActiveRecord::Base
     unless self.applicant.blank? || self.applicant.biosketch.blank? # self.applicant.biosketch_document_id.blank?
       if self.applicant_biosketch_document_id.blank?
         # create a new copy of the file associated only with the submission
-        unless self.applicant.biosketch.file.blank?
-          Rails.logger.info("~~~~ self.applicant.biosketch.file = #{self.applicant.biosketch.file.inspect}")
-          # self.applicant_biosketch_document = FileDocument.new(:file => self.applicant.biosketch.file)
-          # self.applicant_biosketch_document.file_content_type = self.applicant.biosketch.file_content_type
-          # self.applicant_biosketch_document.file_file_name = self.applicant.biosketch.file_file_name
-          # self.applicant_biosketch_document.last_updated_at = self.applicant.biosketch.updated_at
-
-          doc = FileDocument.new(:file => self.applicant.biosketch.file)
-          doc.file_content_type = self.applicant.biosketch.file_content_type
-          doc.file_file_name = self.applicant.biosketch.file_file_name
-          doc.last_updated_at = self.applicant.biosketch.updated_at
-          doc.save!
-          self.update_attribute :applicant_biosketch_document_id, doc.id
-
-          Rails.logger.info("~~~~ creating self.applicant_biosketch_document: #{self.applicant_biosketch_document.inspect}")
-          # self.applicant_biosketch_document.save
+        unless self.applicant.biosketch_document_id.blank?
+          attachment = self.applicant.biosketch.dup
+          attachment.save!
+          self.update_attribute :applicant_biosketch_document_id, attachment.id
         end
-        begin
-          logger.error "saving biosketch: updated_at: #{self.applicant_biosketch_document.last_updated_at} was #{self.applicant.biosketch.updated_at}"
-        rescue
-          puts 'error logging error when saving biosketch'
-        end
-        # self.save
       end
     end
   end
@@ -379,19 +331,8 @@ class Submission < ActiveRecord::Base
     end
   end
 
-  def department_administrator_username
-    read_attribute :department_admin_username
-  end
-
-  def department_administrator_username=(username)
-    write_attribute :department_admin_username, username
-  end
-
-  def applicant_biosketch_document_id
-    read_attribute :applicant_biosketch_doc_id
-  end
-
-  def applicant_biosketch_document_id=(id)
-    write_attribute :applicant_biosketch_doc_id, id
-  end
+  def department_administrator_username; read_attribute :department_admin_username; end
+  def department_administrator_username=(username); write_attribute :department_admin_username, username; end
+  def applicant_biosketch_document_id; read_attribute :applicant_biosketch_doc_id; end
+  def applicant_biosketch_document_id=(id); write_attribute :applicant_biosketch_doc_id, id; end
 end

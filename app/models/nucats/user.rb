@@ -50,9 +50,10 @@
 class Nucats::User < ActiveRecord::Base
 
   self.table_name = 'nucats_users'
+  require 'attachment_ams'
 
   has_many :reviewers  # really program reviewers since the reviewer model is a user + program
-  belongs_to :biosketch, :class_name => 'FileDocument', :foreign_key => 'biosketch_document_id'
+  belongs_to :biosketch, :class_name => 'Attachment', :foreign_key => 'biosketch_document_id'
   has_many :key_personnel
   has_many :submission_reviews, :foreign_key => 'reviewer_id'
   has_many :reviewed_submissions, :class_name => 'Submission', :through => :submission_reviews, :source => :submission
@@ -130,18 +131,31 @@ class Nucats::User < ActiveRecord::Base
     self.photo.uploaded_file = field
   end
 
-  def uploaded_biosketch=(field)
-    if self.biosketch_document_id.nil?
-      self.biosketch = FileDocument.new
-      msg = 'creating new biosketch object for investigator'
-      begin
-        logger.warn msg
-      rescue
-        puts msg
-      end
+  def uploaded_biosketch=(uploaded_file); upload_attachment(uploaded_file, :biosketch_document_id); end
+ 
+  def upload_attachment(uploaded_file, attachment_field)
+    if (uploaded_file.is_a? String)
+      write_attribute(attachment_field, nil)
+    else
+      attachment_ams = AttachmentAms.new
+      attachment = attachment_ams.create( uploaded_file, 'nucats_user', self.id )
+
+      write_attribute(attachment_field, attachment.id)
     end
-    self.biosketch.uploaded_file = field
   end
+
+  # def uploaded_biosketch=(field)
+  #   if self.biosketch_document_id.nil?
+  #     self.biosketch = FileDocument.new
+  #     msg = 'creating new biosketch object for investigator'
+  #     begin
+  #       logger.warn msg
+  #     rescue
+  #       puts msg
+  #     end
+  #   end
+  #   self.biosketch.uploaded_file = field
+  # end
 
   def save_documents
     self.biosketch.save if !self.biosketch.nil? && self.biosketch.changed?

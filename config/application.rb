@@ -63,6 +63,15 @@ module NucatsAssist
 
     config.assets.prefix = "#{ENV['RAILS_RELATIVE_URL_ROOT']}/assets"
 
+    # SetEnv in httpd.conf 
+    config.ams = {
+        url: ENV['AMS_URL'],
+        login: ENV['AMS_LOGIN'],
+        transaction: ENV['AMS_TRANSACTION'],
+        services_transaction: ENV['AMS_SERVICES_TRANSACTION']
+    }
+
+
   end
 
 end
