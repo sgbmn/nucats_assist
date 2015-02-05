@@ -43,7 +43,7 @@
           %span.glyphicon.glyphicon-exclamation-sign{aria: {hidden: true}}
           = project.application_doc_description.html_safe || "Please upload the completed application document."
       - else
-        = link_to_file submission.application_document_id, "Filename: #{submission.application_document.file_name}"
+        = link_to_file submission.application_document_id, "#{submission.application_document.file_name}"
         &nbsp; File saved on
         = submission.application_document.updated_at.to_s(:justdate)
       = link_to_application_template(project).html_safe
@@ -62,10 +62,8 @@
           %span.glyphicon.glyphicon-exclamation-sign{aria: {hidden: true}}
           Please upload the budget document
       - else
-        = link_to_file submission.budget_document_id, "", "spreadsheet"
+        = link_to_file submission.budget_document_id, "#{submission.budget_document.file_name}", "spreadsheet"
         %i Budget uploaded. 
-        Filename: 
-        = submission.budget_document.file_name
       = link_to_budget_template(current_project).html_safe
       |
       = link_to_budget_info(current_project).html_safe
@@ -82,10 +80,8 @@
           %span.glyphicon.glyphicon-exclamation-sign{aria: {hidden: true}}
           = project.manage_other_support_text.html_safe || "File is missing"
       - else
-        = link_to_file submission.other_support_document_id, "", "document"
+        = link_to_file submission.other_support_document_id, "#{submission.other_support_document.file_name}", "document"
         %i NIH Other Support uploaded
-        Filename: 
-        = submission.other_support_document.file_name
       = link_to_other_support_documents.html_safe
     
 - if project.show_document1
@@ -100,10 +96,8 @@
           %span.glyphicon.glyphicon-exclamation-sign{aria: {hidden: true}}
           = project.document1_description || "File is missing"
       - else 
-        = link_to_file submission.document1_id, "", "document"
+        = link_to_file submission.document1_id, "#{submission.document1.file_name}", "document"
         %i #{submission.project.document1_name} uploaded.
-        Filename: 
-        =  submission.document1.file_name
       = link_to_document_template(project, 1).html_safe
       |
       = link_to_document_info(project, 1).html_safe
@@ -120,10 +114,8 @@
           %span.glyphicon.glyphicon-exclamation-sign{aria: {hidden: true}}
           = project.document2_description || "File is missing"
       - else
-        = link_to_file submission.document2_id, "", "document"
+        = link_to_file submission.document2_id, "#{submission.document2.file_name}", "document"
         %i #{submission.project.document2_name} uploaded.
-        Filename: 
-        =  submission.document2.file_name
       = link_to_document2_template_info submission.project
 
 - if project.show_document3
@@ -138,10 +130,8 @@
           %span.glyphicon.glyphicon-exclamation-sign{aria: {hidden: true}}
           = project.document3_description || "File is missing"
       - else
-        = link_to_file submission.document3_id, "", "document"
+        = link_to_file submission.document3_id, "#{submission.document3.file_name}", "document"
         %i #{submission.project.document3_name} uploaded.
-        Filename:
-        =  submission.document3.file_name
       = link_to_document3_template_info submission.project
 
 - if project.show_document4
@@ -156,10 +146,8 @@
           %span.glyphicon.glyphicon-exclamation-sign{aria: {hidden: true}}
           %i= project.document4_description || "File is missing"
       - else
-        = link_to_file submission.document4_id, "", "document"
+        = link_to_file submission.document4_id, "#{submission.document4.file_name}", "document"
         %i #{submission.project.document4_name} uploaded.
-        Filename:
-        =  submission.document4.file_name
       = link_to_document4_template_info submission.project
 
 - supplemental_document_missing = submission.supplemental_document_id.blank?
@@ -172,7 +160,7 @@
     - if submission.supplemental_document_id.blank?
       %i= project.supplemental_document_description.html_safe || "Please upload any supplemental document."
     - else
-      = link_to_file submission.supplemental_document_id, "Filename: #{submission.supplemental_document.file_name}"
+      = link_to_file submission.supplemental_document_id, "#{submission.supplemental_document.file_name}"
       &nbsp;
       File saved on
-      = submission.supplemental_document.updated_at.to_s(:justdate)
+      = submission.supplemental_document.updated_at.strftime("%D")

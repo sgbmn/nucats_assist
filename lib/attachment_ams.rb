@@ -22,7 +22,7 @@ class AttachmentAms
       :objects_id => objects_id,
       # :file_size => uploaded_file.size,
       :active => 1,
-      :type => type
+      :content_type => type
     )
     attachment.save(attachment)
 

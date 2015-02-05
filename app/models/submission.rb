@@ -90,6 +90,7 @@ class Submission < ActiveRecord::Base
   belongs_to :document4,                    :class_name => 'Attachment', :foreign_key => 'document4_id'
   belongs_to :supplemental_document,        :class_name => 'Attachment', :foreign_key => 'supplemental_document_id'
 
+  validates_associated :document4
   # TODO : determine how many supplemental documents are needed or add a join model to associate many documents
   #        (probably will continue to simply add belongs_to relationships to this model)
 
@@ -278,7 +279,7 @@ class Submission < ActiveRecord::Base
       nil
     else
       attachment_ams = AttachmentAms.new
-      attachment = attachment_ams.create( uploaded_file, 'nucats_submission', self.id )
+      attachment = attachment_ams.create( uploaded_file, 'nucats_submission', self.id, uploaded_file.content_type )
       write_attribute(attachment_field, attachment.id)
       attachment
     end

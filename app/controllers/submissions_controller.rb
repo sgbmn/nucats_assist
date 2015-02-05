@@ -137,13 +137,14 @@ class SubmissionsController < ApplicationController
       # params[:submission].delete(:id)  # id causes an error  - can't mass assign id
       if @submission.update_attributes(params[:submission])
         flash[:errors] = nil
-        send_submission_email(@submission)
+        # send_submission_email(@submission)
         flash[:notice] = "Submission <i>'#{@submission.submission_title}'</i> was successfully updated"
         flash[:notice] = "#{flash[:notice]} and is COMPLETE!!" if @submission.is_complete?
         flash[:errors] = "Submission was saved but: #{@submission.errors.full_messages.join('; ')}" unless @submission.errors.blank?
         format.html { redirect_to project_path(@project.id) }
         format.xml  { head :ok }
       else
+        flash[:errors] = "#{@submission.errors}"
         format.html { render :action => 'edit' }
         format.xml  { render :xml => @submission.errors, :status => :unprocessable_entity }
       end

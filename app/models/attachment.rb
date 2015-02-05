@@ -3,8 +3,10 @@ class Attachment < ActiveRecord::Base
   attr_accessible :file_name, :file_id, :file_revision_id, :objects_name, :objects_id, :active, :file_type_id,
   :type#, :file_size
 
-  has_many :attachment_objects,
-           :foreign_key => 'attachments_id'
+  has_many :attachment_objects, :foreign_key => 'attachments_id'
+  validates :content_type, inclusion: {in: %w(application/pdf 
+    application/vnd.openxmlformats-officedocument.wordprocessingml.document application/msword),
+    :message => "%{value} is not a valid file type" }
 
   def as_json(options = {})
     {
@@ -15,6 +17,14 @@ class Attachment < ActiveRecord::Base
       delete_url: "/attachments/" + self.id.to_s,
       delete_type: "DELETE"
     }
+  end
+
+  def content_type
+    read_attribute :type
+  end
+
+  def content_type=(ct)
+    write_attribute :type, ct
   end
 
   def updated_at

@@ -11,6 +11,7 @@
       %th Documents
       %th Composite Scores
       %th Overall Scores
+      %th &nbsp;
     
     - submissions.each_with_index do |submission, i |
       %tr
@@ -27,6 +28,9 @@
             = link_to(image_tag("page_white_link.png", :width=>"16px", :height=>"16px")+' Reviews', submission_reviews_path(submission.id), :title=>"View the review summary for this submission")
         %td= h submission.composite_scores_string
         %td= h submission.overall_scores_string
+        %td
+          %span.glyphicon.glyphicon-download-alt
+          
   :javascript
     jQuery(document).ready(function() {
     // call the tablesorter plugin
