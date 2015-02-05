@@ -12,6 +12,7 @@ coverage/
 public/assets/
 doc/notes/
 log/
+/config/application.yml
 
 # Ignore .env files
 .env.test
