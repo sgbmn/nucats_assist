@@ -14,19 +14,20 @@ module FileDocumentsHelper
         return link_to(link_text.html_safe, required_path, title: "Please upload #{link_text} #{mouse_over}".strip.html_safe, class: 'warning_16')
       end
     end
-    if lookup_file_type
-      file_name = Attachment.find(id).file_name
-      file_format = file_name.gsub(/(.*)\.([^\.+])/, '\2')
-      file_format = 'txt' if file_format == file_name
-      file_type = 'pdf' if file_format.to_s == 'pdf'
-    else
-      file_type = 'speed'
-      file_format = 'txt'
-    end
+    attachment = Attachment.find(id)
+    # if lookup_file_type
+    #   file_name = Attachment.find(id).file_name
+    #   file_format = file_name.gsub(/(.*)\.([^\.+])/, '\2')
+    #   file_format = 'txt' if file_format == file_name
+    #   file_type = 'pdf' if file_format.to_s == 'pdf'
+    # else
+    #   file_type = 'speed'
+    #   file_format = 'txt'
+    # end
     mouse_over = link_text if mouse_over.nil?
-    mouse_over = file_name if mouse_over.blank?
+    mouse_over = attachment.file_name if mouse_over.blank?
     link_to(link_text.html_safe,
-            file_document_path(id, format: file_format),
+            '/portal/funding_opportunities/attachments/' + attachment.file_revision_id,
             title: "Download #{mouse_over}".html_safe,
             target: '_blank')#,
             # class: determine_image_class(file_type))

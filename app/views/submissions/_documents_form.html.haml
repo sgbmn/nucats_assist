@@ -15,6 +15,7 @@
   %tr
     %td= f.label :uploaded_biosketch, label: "PI Biosketch Document", required: biosketch_required
     %td
+      #biosketch.file-upload
       %p= f.input "uploaded_biosketch", as: :file, label: false, required: biosketch_required
       - if biosketch_missing
         .alert.alert-warning{role: "alert"}

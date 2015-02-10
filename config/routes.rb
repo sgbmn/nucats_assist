@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 NucatsAssist::Application.routes.draw do
   scope ENV['RAILS_RELATIVE_URL_ROOT'] || '/' do
-  resources :file_documents, only: :show
+  # resources :file_documents, only: :show
+  resources :attachments
   resources :audits, only: :index do
     collection do
       get :activities

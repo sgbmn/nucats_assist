@@ -4,28 +4,32 @@ class Attachment < ActiveRecord::Base
   :type#, :file_size
 
   has_many :attachment_objects, :foreign_key => 'attachments_id'
-  validates :content_type, inclusion: {in: %w(application/pdf 
-    application/vnd.openxmlformats-officedocument.wordprocessingml.document application/msword),
-    :message => "%{value} is not a valid file type" }
+  # validates :content_type, inclusion: {in: %w(application/pdf 
+  #   application/vnd.openxmlformats-officedocument.wordprocessingml.document application/msword),
+  #   :message => "%{value} is not a valid file type" }
 
   def as_json(options = {})
     {
       name: self.file_name,
       # size: self.file_size.to_i,
       url: '/portal/funding_opportunities/attachments/' + self.file_revision_id,
-      thumbnail_url: "\/\/example.org\/thumbnails\/picture1.jpg",
-      delete_url: "/attachments/" + self.id.to_s,
-      delete_type: "DELETE"
+      thumbnailUrl: "\/\/example.org\/thumbnails\/picture1.jpg",
+      deleteUrl: "/attachments/" + self.id.to_s,
+      deleteType: "DELETE"
     }
   end
 
-  def content_type
-    read_attribute :type
+  def url
+    '/portal/funding_opportunities/attachments/' + self.file_revision_id
   end
 
-  def content_type=(ct)
-    write_attribute :type, ct
-  end
+  # def content_type
+  #   read_attribute :type
+  # end
+
+  # def content_type=(ct)
+  #   write_attribute :type, ct
+  # end
 
   def updated_at
     updated = read_attribute(:modified_on)

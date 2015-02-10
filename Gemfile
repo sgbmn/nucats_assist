@@ -20,6 +20,7 @@ gem 'portal_app_core', :git => 'ssh://git@fscode.ahc.umn.edu:7999/CTSIPORTAL/por
 gem 'redcarpet'
 gem 'simple_form'
 gem 'httparty' #ams posting, etc
+gem 'figaro'
 
 # Authorization
 # TODO: remove aker in favor of omniauth

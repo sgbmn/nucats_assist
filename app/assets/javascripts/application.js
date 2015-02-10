@@ -7,6 +7,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require jquery.ui.widget
+//= require jquery.iframe-transport
+//= require jquery.fileupload
 //= require jquery.tablesorter.min
 //= require bootstrap-sprockets
 // require jquery_noconflict
@@ -18,4 +21,5 @@
 // require facebox
 // require jquery.validate
 // require additional-methods
+//= require_tree .
 //= require_self

@@ -274,12 +274,14 @@ class Submission < ActiveRecord::Base
   def uploaded_application=(uploaded_file); create_attachment(uploaded_file, :application_document_id); end
 
   def create_attachment(uploaded_file, attachment_field)
+    errors.add attachment_field, 'Wrong file type'
+    # raise 'there'
     if (uploaded_file.is_a? String)
       write_attribute(attachment_field, nil)
       nil
     else
       attachment_ams = AttachmentAms.new
-      attachment = attachment_ams.create( uploaded_file, 'nucats_submission', self.id, uploaded_file.content_type )
+      attachment = attachment_ams.create( uploaded_file, 'nucats_submission', self.id )
       write_attribute(attachment_field, attachment.id)
       attachment
     end
