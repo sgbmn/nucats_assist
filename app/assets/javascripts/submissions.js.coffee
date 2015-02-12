@@ -9,6 +9,7 @@ $ ->
         alert "Only pdf, doc, and docx file are allowed"
         valid = false
         false
+    valid
     
 #   $('#fileupload').fileupload
 #     dataType: 'json'
