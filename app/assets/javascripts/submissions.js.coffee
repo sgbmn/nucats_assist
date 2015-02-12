@@ -1,5 +1,5 @@
 $ ->
-  $('#submission_form').submit ->
+  $('#submission_form, form.applicant').submit ->
     valid = true
     $('input:file').each ->
       fileType = $(this).val().split('.').pop().toLowerCase()
@@ -9,7 +9,6 @@ $ ->
         alert "Only pdf, doc, and docx file are allowed"
         valid = false
         false
-    console.log valid
     
 #   $('#fileupload').fileupload
 #     dataType: 'json'
