@@ -1,9 +1,9 @@
-- if !cookies[:nucats_auth].present? || !session[:user_info].present? 
-  .container
-    #submenu
-      %p.small 
-        Having trouble logging in? #{link_to 'Click here', auth_path, :class => 'menu_link'} to reset your session.
-      / TODO: Fix CSRF Detected error coming from OmniAuth
+/ - if !cookies[:nucats_auth].present? || !session[:user_info].present? 
+/   .container
+/     #submenu
+/       %p.small 
+/         Having trouble logging in? #{link_to 'Click here', auth_path, :class => 'menu_link'} to reset your session.
+/       / TODO: Fix CSRF Detected error coming from OmniAuth
 
 .clearfix
 %nav.navbar
