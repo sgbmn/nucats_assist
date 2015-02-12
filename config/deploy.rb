@@ -36,7 +36,9 @@ desc "Fix permission"
     run "chmod 775 -R #{release_path}"
   end
 
-after "deploy:create_symlink", :fix_permissions
+after "figaro:symlink", :fix_permissions
+
+# after "deploy:create_symlink", :fix_permissions
 after "deploy:restart", "deploy:cleanup"
 
 # if you're still using the script/reaper helper you will need
@@ -49,4 +51,14 @@ namespace :deploy do
   task :restart, :roles => :web, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
+end
+
+namespace :figaro do
+  # desc "Symlink application.yml and database.yml to the release path"
+  task :symlink do
+    # run "ln -sf #{shared_path}/database.yml #{release_path}/config/database.yml"
+    run "ln -sf #{shared_path}/application.yml #{release_path}/config/application.yml"
+  end
+
+  after "deploy:finalize_update", "figaro:symlink"
 end
