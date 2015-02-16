@@ -47,9 +47,7 @@
         = link_to_file submission.application_document_id, "#{submission.application_document.file_name}"
         &nbsp; File saved on
         = submission.application_document.updated_at.to_s(:justdate)
-      = link_to_application_template(project).html_safe
-      |
-      = link_to_application_info(project).html_safe
+      = [link_to_application_template(project), link_to_application_info(project)].delete_if{ |l| l.blank? }.join(' | ').html_safe
 
 - if project.show_budget_form
   - budget_missing = submission.budget_document_id.blank?
@@ -65,9 +63,7 @@
       - else
         = link_to_file submission.budget_document_id, "#{submission.budget_document.file_name}", "spreadsheet"
         %i Budget uploaded. 
-      = link_to_budget_template(current_project).html_safe
-      |
-      = link_to_budget_info(current_project).html_safe
+      = [link_to_budget_template(current_project), link_to_budget_info(current_project)].delete_if{ |l| l.blank? }.join(' | ').html_safe
 
 - if project.show_manage_other_support
   - other_support_missing = submission.other_support_document_id.blank?
@@ -99,9 +95,7 @@
       - else 
         = link_to_file submission.document1_id, "#{submission.document1.file_name}", "document"
         %i #{submission.project.document1_name} uploaded.
-      = link_to_document_template(project, 1).html_safe
-      |
-      = link_to_document_info(project, 1).html_safe
+      = [link_to_document_template(project, 1), link_to_document_info(project, 1)].delete_if{ |l| l.blank? }.join(' | ').html_safe
 
 - if project.show_document2
   - document2_missing = submission.document2_id.blank?
