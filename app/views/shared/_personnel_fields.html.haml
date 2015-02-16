@@ -3,7 +3,6 @@
     = f.hidden_field :id
     = f.text_field(:username, :size => 14)
     Enter an Internet ID #{netid_lookup_tag} for UMN people or a gmail or yahoo email address for non-UMN people
-    = key_personnel_lookup_observer(submission.id, "key_personnel_#{index}", "#{index}").html_safe
     %span{id: "key_personnel_#{index}_username_id"}
     %br
     = f.text_field( :first_name, :size => 14)
