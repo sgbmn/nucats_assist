@@ -105,3 +105,8 @@ div#project_membership_required p {
   font-size: 0.8em;
   color: gray;
 }
+
+label.required abbr {
+  color: red;
+  font-size: 1.2em;
+}
