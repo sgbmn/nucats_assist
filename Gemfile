@@ -9,7 +9,7 @@ gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.0'
 gem 'haml'
 gem 'will_paginate'
 gem 'fastercsv'
-gem 'princely'
+# gem 'princely'
 # gem 'bootstrap-sass'
 # gem 'autoprefixer-rails'
 
@@ -21,6 +21,9 @@ gem 'redcarpet'
 gem 'simple_form'
 gem 'httparty' #ams posting, etc
 gem 'figaro'
+gem 'font-awesome-sass'
+gem 'wkhtmltopdf-binary'
+gem 'wicked_pdf'
 
 # Authorization
 # TODO: remove aker in favor of omniauth

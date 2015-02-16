@@ -3,7 +3,7 @@
 ##
 # (Mostly) RESTful controller for the Project model
 class ProjectsController < ApplicationController
-  skip_before_filter :check_authorization
+  # skip_before_filter :check_authorization
   before_filter :set_project, except: [:index, :create, :new]
   require 'config' # specific configuration methods
 

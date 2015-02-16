@@ -29,7 +29,8 @@
         %td= h submission.composite_scores_string
         %td= h submission.overall_scores_string
         %td
-          %span.glyphicon.glyphicon-download-alt
+          / %a{href: "#{reviews_admin_submission_path(submission.id)}.pdf"}
+          /   %i.fa.fa-file-pdf-o
           
   :javascript
     jQuery(document).ready(function() {

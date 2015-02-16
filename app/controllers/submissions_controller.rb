@@ -50,9 +50,9 @@ class SubmissionsController < ApplicationController
         format.html { render :layout => 'pdf' } # show.html.erb
         format.pdf do
           render text: 'This feature is unavailable due to licensing'
-          # render :pdf => @submission.submission_title,
+          render :pdf => @submission.submission_title, layout: 'pdf'
           #        :stylesheets => ['pdf'],
-          #        :layout => 'pdf'
+          #       
         end
         format.xml  { render :xml => @submission }
       end
