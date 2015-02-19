@@ -1,0 +1,48 @@
+%Row
+  %Cell
+    %Data{"ss:Type" => "String"}= submission_review.submission.applicant.long_name
+  %Cell
+    %Data{"ss:Type" => "String"}= submission_review.submission.submission_title
+  - if submission_review.submission.project.show_submission_category
+    %Cell
+      %Data{"ss:Type" => "String"}= submission_review.submission.submission_category
+  %Cell
+    %Data{"ss:Type" => "String"}= submission_review.submission.project.project_title
+  %Cell
+    %Data{"ss:Type" => "String"}= submission_review.submission.project.program.program_title
+  %Cell
+    %Data{"ss:Type" => "String"}= submission_review.submission.project.submission_close_date
+  %Cell
+    %Data{"ss:Type" => "String"}= submission_review.submission.status
+  %Cell
+    %Data{"ss:Type" => "String"}= submission_review.submission.project.created_at.to_date
+  - if submission_review.submission.project.show_impact_score
+    %Cell
+      %Data{"ss:Type" => "String"}= submission_review.impact_text
+  - if submission_review.submission.project.show_team_score
+    %Cell
+      %Data{"ss:Type" => "String"}= submission_review.team_text
+  - if submission_review.submission.project.show_innovation_score
+    %Cell
+      %Data{"ss:Type" => "String"}= submission_review.innovation_text
+  - if submission_review.submission.project.show_scope_score
+    %Cell
+      %Data{"ss:Type" => "String"}= submission_review.scope_text
+  - if submission_review.submission.project.show_environment_score
+    %Cell
+      %Data{"ss:Type" => "String"}= submission_review.environment_text
+  - if submission_review.submission.project.show_budget_score
+    %Cell
+      %Data{"ss:Type" => "String"}= submission_review.budget_text
+  - if submission_review.submission.project.show_other_score
+    %Cell
+      %Data{"ss:Type" => "String"}= submission_review.other_text
+  - if submission_review.submission.project.show_completion_score
+    %Cell
+      %Data{"ss:Type" => "String"}= submission_review.completion_text
+  %Cell
+    %Data{"ss:Type" => "String"}= submission_review.overall_text
+  %Cell
+    %Data{"ss:Type" => "String"}= Composite submission_review.submission.composite_scores unless submission_review.submission.composite_scores.blank? || submission_review.submission.composite_scores.to_s == '0'
+  %Cell
+    %Data{"ss:Type" => "String"}= submission_review.submission.overall_scores

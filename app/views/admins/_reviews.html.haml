@@ -29,8 +29,9 @@
         %td= h submission.composite_scores_string
         %td= h submission.overall_scores_string
         %td
-          / %a{href: "#{reviews_admin_submission_path(submission.id)}.pdf"}
-          /   %i.fa.fa-file-pdf-o
+          %a.btn.btn-school{href: "#{reviews_admin_submission_path(submission.id)}.pdf"}
+            PDF
+            %i.fa.fa-file-pdf-o
           
   :javascript
     jQuery(document).ready(function() {

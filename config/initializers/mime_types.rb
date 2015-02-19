@@ -4,9 +4,10 @@
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register_alias "text/html", :iphone
 
+Mime::Type.register "application/xls", :xls
 Mime::Type.register "image/svg+xml", :svg
 Mime::Type.register "image/png", :png
 #Mime::Type.register "application/pdf", :pdf
 #Mime::Type.register "application/x-pdf", :xpdf
-Mime::Type.register "application/vnd.ms-excel", :xls
+# Mime::Type.register "application/vnd.ms-excel", :xls
 Mime::Type.register "application/vnd.msword", :doc

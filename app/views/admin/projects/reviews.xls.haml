@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+%Workbook{:xmlns => "urn:schemas-microsoft-com:office:spreadsheet", "xmlns:html" => "http://www.w3.org/TR/REC-html40", "xmlns:o" => "urn:schemas-microsoft-com:office:office", "xmlns:ss" => "urn:schemas-microsoft-com:office:spreadsheet", "xmlns:x" => "urn:schemas-microsoft-com:office:excel"}
+  %Worksheet{"ss:Name" => "Sheet1"}
+    %Table
+      %Row
+        %Cell
+          %Data{"ss:Type" => "String"} Applicant
+        %Cell
+          %Data{"ss:Type" => "String"} Project
+        - if @project.show_submission_category
+          %Cell
+            %Data{"ss:Type" => "String"}= @project.category_wording
+        %Cell
+          %Data{"ss:Type" => "String"} Competition
+        %Cell
+          %Data{"ss:Type" => "String"} Sponsor
+        %Cell
+          %Data{"ss:Type" => "String"} Submission deadline
+        %Cell
+          %Data{"ss:Type" => "String"} Application status
+        %Cell
+          %Data{"ss:Type" => "String"} Submission created at
+        %Cell
+          %Data{"ss:Type" => "String"} Submitter
+        - if @project.show_impact_score
+          %Cell
+            %Data{"ss:Type" => "String"}=  @project.impact_title
+        - if @project.show_team_score
+          %Cell
+            %Data{"ss:Type" => "String"}= @project.team_title
+        - if @project.show_innovation_score
+          %Cell
+            %Data{"ss:Type" => "String"}= @project.innovation_title
+        - if @project.show_scope_score
+          %Cell
+            %Data{"ss:Type" => "String"}= @project.scope_title
+        - if @project.show_environment_score
+          %Cell
+            %Data{"ss:Type" => "String"}= @project.environment_title
+        - if @project.show_budget_score
+          %Cell
+            %Data{"ss:Type" => "String"}= @project.budget_title
+        - if @project.show_other_score
+          %Cell
+            %Data{"ss:Type" => "String"}= @project.other_title
+        - if @project.show_completion_score
+          %Cell
+            %Data{"ss:Type" => "String"}= @project.completion_title
+        %Cell
+          %Data{"ss:Type" => "String"} Overall review comments
+        %Cell
+          %Data{"ss:Type" => "String"} Composite score
+        %Cell
+          %Data{"ss:Type" => "String"} Overall score
+      = render partial: 'submission_review', collection: @project.submissions.map{ |s| s.submission_reviews }.flatten

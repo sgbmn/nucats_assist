@@ -3,17 +3,17 @@ NucatsAssist::Application.routes.draw do
   scope ENV['RAILS_RELATIVE_URL_ROOT'] || '/' do
   # resources :file_documents, only: :show
   namespace :admin do 
-    # resources :projects do
-    #   collection do
-    #     get :reviews
-    #   end
-    # end
+    resources :projects, only: [] do
+      member do
+        get :reviews
+      end
+    end
     resources :submissions, only: [] do
       member do
         get :reviews
       end
     end
-    # resources :reviews,  only: :show
+    # resources :reviews,  only: :index
   end
 
   resources :attachments
