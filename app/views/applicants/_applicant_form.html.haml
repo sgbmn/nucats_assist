@@ -27,10 +27,9 @@
 		= applicant.email
 		&nbsp;
 	%td.notes Email, from LDAP
-%tr
+%tr.hidden
 	%td{colaspan: 3}
-		- hidden_div_if(true, :id => "applicant_fields") do
-			= render "applicant_fields", :f => f, :applicant => applicant
+		= render "applicant_fields", :f => f, :applicant => applicant
 		&nbsp;
 %tr
 	%td.title
@@ -56,7 +55,7 @@
 		Please enter #{pronoun} best contact phone number #{completion}.
 %tr
 	%td.title= f.label :title, "Title"
-	%td= f.text_field :title
+	%td= f.select :title, ['Professor', 'Assistant Professor', 'Associate Professor', 'Adjunct Professor', 'Research Fellow', 'Pre Doctoral student', 'Post doctoral student', 'Graduate student', 'Undergraduate student', 'Research staff', 'Medical fellow', 'Dual-degree student'], {include_blank: true}
 	%td.notes
 		Please enter #{pronoun} faculty rank (Professor, Associate Professor, etc) #{completion}.
 %tr
